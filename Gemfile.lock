@@ -267,7 +267,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  cancancan
+  cancancan (~> 1.8)
   capybara
   capybara-webkit
   coffee-rails (~> 4.0.0)

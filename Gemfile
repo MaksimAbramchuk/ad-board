@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'devise'
-gem 'cancancan'
+gem 'cancancan', '~> 1.8'
 gem 'whenever', :require => false
 gem 'state_machine'
 gem 'aasm'
