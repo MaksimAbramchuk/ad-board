@@ -1,4 +1,5 @@
 class Advert < ActiveRecord::Base
+
   include AASM
 
   belongs_to :user
@@ -26,6 +27,10 @@ class Advert < ActiveRecord::Base
 
     event :decline do
       transitions :from => :awaiting_publication, :to => :declined
+    end
+
+    event :update do
+      transitions :from => [:new, :awaiting_publication, :declined, :published], to: :new
     end
 
   end
