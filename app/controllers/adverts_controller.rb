@@ -23,10 +23,28 @@ class AdvertsController < ApplicationController
     @adverts = Advert.where(state: "awaiting_publication")
   end
 
+  def change
+    @advert = Advert.find(params[:advert_id])  
+  end
+
+  def change_state
+    @advert = Advert.find(params[:advert_id])
+    @advert.send(state_params[:state])
+    if @advert.save
+      redirect_to account_adverts_path
+    else
+      render "change"
+    end
+  end
+
   protected
   
   def advert_params
     params.require(:advert).permit(:name, :description, :price)
+  end
+
+  def state_params
+    params.require(:advert).permit(:state)
   end
 
 end

@@ -7,5 +7,11 @@ table
           = a.name
     tr
       td
+        u = a.state
+    tr
+      td
         i
-          = a.description
+          = a.description 
+    tr
+      td
+        = link_to "Change state", advert_change_path(a)

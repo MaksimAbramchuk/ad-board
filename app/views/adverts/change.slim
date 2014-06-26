@@ -1,0 +1,11 @@
+h2
+  = "Current state is #{@advert.state}" 
+  br
+h2 change to
+
+= form_for @advert, url: { action: "change_state", controller: "adverts" }, method: "patch" do |f|
+  = f.select :state, available_states_for(@advert)
+  br
+  = f.submit "Change state"
+
+

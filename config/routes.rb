@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   get 'users/all', to: "users#all"
   get 'users/:id/', to: "users#show"
   get 'account/adverts/', to: "accounts#adverts"
-  get 'adverts/new/', to: "adverts#new"
-  post 'adverts/new/', to: "adverts#create"
+
+  resources :adverts do
+    get 'change'
+    match "change" => "adverts#change_state", via: [:put, :patch]
+  end
   # You can have the root of your site routed with "root"
 
   # root 'welcome#index'

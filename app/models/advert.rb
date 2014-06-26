@@ -6,8 +6,6 @@ class Advert < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :category
-  
-  CATEGORIES = Category.all.pluck(:name)
 
   aasm column: "state" do
 
@@ -40,7 +38,7 @@ class Advert < ActiveRecord::Base
   end
 
   def save_state
-    self.update
+    self.save
   end
 
   def self.archive_old_adverts

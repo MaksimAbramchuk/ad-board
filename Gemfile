@@ -30,6 +30,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'launchy'
   gem 'rubocop'
+  gem "better_errors"
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
