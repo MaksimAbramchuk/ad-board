@@ -1,0 +1,4 @@
+h1 
+  = @user.email
+- if current_user.send(:admin?)
+  = render partial: "users_publication"

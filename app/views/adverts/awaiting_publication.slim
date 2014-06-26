@@ -1,0 +1,11 @@
+h1 Adverts, awaiting publication
+table
+  - @adverts.each do |a|
+    tr
+      td
+        b
+          = a.name
+    tr
+      td
+        i
+          = a.description

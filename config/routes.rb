@@ -2,8 +2,20 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   devise_for :users
+  
   root 'adverts#index'
+
+  get 'account/role', to: "accounts#role"
+  post 'account/role/change', to: "accounts#change_role"
+  get 'account', to: "accounts#index"
+  get 'adverts/awaiting_publication', to: "adverts#awaiting_publication"
+  get 'users/all', to: "users#all"
+  get 'users/:id/', to: "users#show"
+  get 'account/adverts/', to: "accounts#adverts"
+  get 'adverts/new/', to: "adverts#new"
+  post 'adverts/new/', to: "adverts#create"
   # You can have the root of your site routed with "root"
+
   # root 'welcome#index'
 
   # Example of regular route:

@@ -1,0 +1,16 @@
+= form_for :advert do |f|
+  = f.label :name
+  br
+  = f.text_field :name
+  br
+  = f.label :description
+  br
+  = f.text_field :description
+  br
+  = f.label :price
+  br
+  = f.number_field :price
+  br
+  = f.collection_select :category, Advert::CATEGORIES, :to_s, :humanize
+  br
+  = f.submit "Create advert"

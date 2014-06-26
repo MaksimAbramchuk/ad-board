@@ -1,10 +1,14 @@
 class Advert < ActiveRecord::Base
 
+  scope :more_than_1_day, -> { where(state: "published").where("updated_at <= :day_ago",{day_ago: Time.now - 1.day}) }
+
   include AASM
 
   belongs_to :user
   belongs_to :category
   
+  CATEGORIES = Category.all.pluck(:name)
+
   aasm column: "state" do
 
     state :new, :initial => true
@@ -36,7 +40,12 @@ class Advert < ActiveRecord::Base
   end
 
   def save_state
-    self.save
+    self.update
+  end
+
+  def self.archive_old_adverts
+    published_adverts = Advert.more_than_1_day
+    published_adverts.each { |a| a.archive }
   end
 
 end

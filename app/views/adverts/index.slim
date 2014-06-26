@@ -1,5 +1,7 @@
 h1 All adverts
 
+= link_to "Create new advert", "adverts/new/"
+
 table
   - @adverts.each do |a|
     tr
@@ -19,4 +21,3 @@ table
       td
         i
           = a.description
-  
