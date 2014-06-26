@@ -6,12 +6,11 @@ class AdvertsController < ApplicationController
 
   def new
     @advert = Advert.new
+    @categories = Category.all
   end
 
   def create
     @advert = Advert.create(advert_params)
-    @category = Category.find_by(name: advert_category[:category])
-    @advert.category = @category
     @advert.user = current_user
     @advert.save
     render text: "Advert has been succesfully added"
@@ -30,7 +29,4 @@ class AdvertsController < ApplicationController
     params.require(:advert).permit(:name, :description, :price)
   end
 
-  def advert_category
-    params.require(:advert).permit(:category)
-  end
 end

@@ -3,4 +3,4 @@ table
 - @users.each do |u|
   tr
     td
-      = link_to u.email, "/users/"+u.id.to_s+"/"
+      = link_to u.name+", "+u.email, "/users/"+u.id.to_s+"/"

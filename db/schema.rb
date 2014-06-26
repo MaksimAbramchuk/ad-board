@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626104942) do
+ActiveRecord::Schema.define(version: 20140626141415) do
 
   create_table "adverts", force: true do |t|
     t.string   "name"
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(version: 20140626104942) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "role",                   default: "user"
+    t.integer  "uid"
+    t.string   "provider"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email"

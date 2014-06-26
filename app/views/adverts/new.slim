@@ -11,6 +11,6 @@
   br
   = f.number_field :price
   br
-  = f.collection_select :category, Advert::CATEGORIES, :to_s, :humanize
+  = f.select :category_id, @categories.map { |c| [c.name, c.id] }
   br
   = f.submit "Create advert"
