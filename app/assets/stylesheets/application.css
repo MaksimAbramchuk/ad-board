@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+.comment_label{
+	display: none;
+}

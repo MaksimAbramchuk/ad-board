@@ -6,6 +6,7 @@ class Advert < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :category
+  has_one :comment
 
   aasm column: "state" do
 

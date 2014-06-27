@@ -6,6 +6,10 @@ h1 My adverts
   br
   u
     = a.state
+  - if a.declined?
+    br
+    span Comment:  
+    = a.comment.comment 
   br
   i
     = a.description

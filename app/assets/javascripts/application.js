@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+function displayComments(){
+	if ($("#advert_state").val() == "decline"){
+	  $("#advert_comment").fadeIn();
+	  $(".comment_label").fadeIn();
+	}
+	else {
+	  $("#advert_comment").fadeOut();
+	  $(".comment_label").fadeOut();
+	}
+}

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'users/all', to: "users#all"
   get 'users/:id/', to: "users#show"
   get 'account/adverts/', to: "accounts#adverts"
+  post 'adverts/:id/change', to: "comments#creater"
 
   resources :adverts do
     get 'change'
