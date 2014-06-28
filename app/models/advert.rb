@@ -2,11 +2,13 @@ class Advert < ActiveRecord::Base
 
   scope :more_than_1_day, -> { where(state: "published").where("updated_at <= :day_ago",{day_ago: Time.now - 1.day}) }
 
-  include AASM
-
   belongs_to :user
   belongs_to :category
   has_one :comment
+
+  KINDS = %w{Sale Purchase Exchange Service Rent}
+
+  include AASM
 
   aasm column: "state" do
 

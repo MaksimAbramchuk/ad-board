@@ -7,16 +7,20 @@
 		  elsif advert.published? || advert.declined?
 		    available = [:archive]
 		  end
-		elsif advert.awaiting_publication?
+		elsif advert.published? || advert.declined?
+	      available << [:archive]
+	    end	  
+			
+		if advert.awaiting_publication?
 		  available << [:archive]
-		elsif advert.new?
-		  available << [:send_for_publication, :archive]
 		end
-	    
+		if advert.new?
+		  available << [:send_for_publication, :archive]
+		end  	
 		if advert.archived? 
 	      available << [:send_for_publication]
 		end
 
-		available
+		available.flatten
 	end
 end

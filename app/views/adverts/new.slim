@@ -1,16 +1,16 @@
 = form_for :advert, url: {action: "create"}, method: :post do |f|
-  = f.label :name
-  br
+  h5 Name:
   = f.text_field :name
   br
-  = f.label :description
-  br
+  h5 Description:
   = f.text_field :description
   br
-  = f.label :price
-  br
+  h5 Price:
   = f.number_field :price
   br
+  h5 Category:
   = f.select :category_id, @categories.map { |c| [c.name, c.id] }
+  h5 Type:
+  = f.collection_select :kind, Advert::KINDS, :to_s, :titleize
   br
-  = f.submit "Create advert"
+  = f.submit "Create advert", :class => "btn btn-primary"
