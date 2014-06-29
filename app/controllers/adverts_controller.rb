@@ -1,7 +1,7 @@
 class AdvertsController < ApplicationController
 
   def index
-    @adverts = Advert.where(state: "published")
+    @adverts = Advert.where(state: "published").order(updated_at: :desc)
   end
 
   def new
@@ -13,14 +13,14 @@ class AdvertsController < ApplicationController
     @advert = Advert.create(advert_params)
     @advert.user = current_user
     @advert.save
-    redirect_to root_path
+    redirect_to account_adverts_path
   end
 
   def awaiting_publication
     unless current_user.send(:admin?)
       redirect_to root_path
     end
-    @adverts = Advert.where(state: "awaiting_publication")
+    @adverts = Advert.where(state: "awaiting_publication").order(updated_at: :desc)
   end
 
   def change
@@ -44,7 +44,7 @@ class AdvertsController < ApplicationController
   protected
   
   def advert_params
-    params.require(:advert).permit(:name, :description, :price, :comment)
+    params.require(:advert).permit(:name, :description, :price, :comment, :category_id, :kind)
   end
 
   def state_params

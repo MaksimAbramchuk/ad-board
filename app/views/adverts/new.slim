@@ -1,4 +1,4 @@
-= form_for :advert, url: {action: "create"}, method: :post do |f|
+= form_for :advert, url: {action: "create"}, html:{class: "form-class"} , method: :post do |f|
   h5 Name:
   = f.text_field :name
   br

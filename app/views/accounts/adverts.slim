@@ -1,17 +1,15 @@
 h1 My adverts
 - @adverts.each do |a|
-  h4
-    = a.name
-  = "Price: #{a.price}"
-  br
-  u
-    = a.state
-  - if a.declined?
+  .well.well-large style='padding-top: 0px;'
+    div
+      = link_to a.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
+      h3 = link_to a.name, adverts_path(a), :style => 'color:black;'
+    p = a.description
+    span.label.label-inverse.pull-left
+      = a.kind
+    span.label.label-info.pull-left style='margin-left:3px;'
+      = a.category.name
+    span.pull-right = a.price.to_s
     br
-    span Comment:  
-    = a.comment.comment 
-  br
-  i
-    = a.description
-  br
-  = link_to "Change state", advert_change_path(a)
+    br
+    = link_to "Change state", advert_change_path(a), :method => :get, :class => "btn btn-primary"

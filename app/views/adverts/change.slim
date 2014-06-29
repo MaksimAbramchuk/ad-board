@@ -1,14 +1,14 @@
-h2
-  = "Current state is #{@advert.state}" 
-  br
-h2 Change to
+= render @advert
 
+h4
+  = "Current state is '#{@advert.state.humanize}'. Change it to:" 
 = form_for @advert, url: { action: "change_state", controller: "adverts" }, method: "patch" do |f|
   = f.select :state, available_states_for(@advert)
   div.comment_label
   	= f.label "Comment:", :class => "comment_label"
   	= f.text_area :comment, :style => "display:none";
-  = f.submit "Change state"
+  br
+  = f.submit "Change state", :class => "btn btn-primary"
 
 script
   | $('#advert_state').on('change', displayComments); displayComments();

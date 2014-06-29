@@ -12,14 +12,14 @@ class AccountsController < ApplicationController
 
   def index
     if current_user.role == "admin"
-      render partial: "admin_account"
+      render "admin_account"
     elsif current_user.role == "user"
-      render partial: "user_account"
+      render "user_account"
     end
   end
   
   def adverts
-    @adverts = current_user.adverts
+    @adverts = current_user.adverts.order(updated_at: :desc)
   end
 
   protected

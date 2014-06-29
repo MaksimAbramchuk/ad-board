@@ -1,0 +1,10 @@
+.well.well-large style='padding-top: 0px;'
+    div
+      = link_to @advert.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
+      h3 = @advert.name
+    p = @advert.description
+    span.label.label-inverse.pull-left
+      = @advert.kind
+    span.label.label-info.pull-left style='margin-left:3px;'
+      = @advert.category.name
+    span.pull-right = @advert.price.to_s+"$"

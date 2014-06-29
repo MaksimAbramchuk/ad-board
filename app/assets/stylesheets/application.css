@@ -10,3 +10,13 @@
 .comment_label{
 	display: none;
 }
+
+.main_block{
+	width: 50%;
+	margin: 0 auto;
+	display: block;
+}
+
+.form-class input{
+	width: 100%;
+}

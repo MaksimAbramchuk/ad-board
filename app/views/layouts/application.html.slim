@@ -22,13 +22,14 @@ html lang="en"
         .container
           a.brand href="/" Board
           .container.nav-collapse
-            ul.nav 
-                li = link_to "Hello, #{current_user.name}!"
+
+            ul.nav  
+                li = link_to "Hello, #{current_user.name}!" if user_signed_in?
             ul class="nav pull-right"
               li = link_to "Account", account_path if user_signed_in?
               li = link_to "Add new advert",new_advert_path, :method => "get" if user_signed_in?
               li.vertical-algn
                 form class="navbar-search" style='margin-right: 20px;'
                   input type="text" class="search-query" placeholder="Search"
-
+  .main_block 
     = yield

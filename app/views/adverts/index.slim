@@ -1,21 +1,3 @@
-h1 All adverts
-
-table
-  - @adverts.each do |a|
-    tr
-      td
-        h2
-          = a.name
-    tr
-      td
-        b Category: 
-        = a.category.name 
-    
-    tr 
-      td
-        b Kind: 
-        = a.kind
-    tr
-      td
-        i
-          = a.description
+- @adverts.each do |a|
+  - @advert = a
+  = render @advert
