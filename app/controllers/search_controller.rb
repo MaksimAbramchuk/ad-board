@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   
   def result
-    regexp = Regexp.new(query_params[:description])
-    @adverts = Advert.all.select {|a| regexp.match(a.description) }
+    @search = Advert.search(params[:q])
+    @adverts = @search.result
   end
 
   protected

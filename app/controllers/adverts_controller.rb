@@ -1,7 +1,8 @@
 class AdvertsController < ApplicationController
 
   def index
-    @adverts = Advert.where(state: "published").order(updated_at: :desc)
+    @search = Advert.search(params[:q])
+    @adverts = @search.result.where(state: :published)
   end
 
   def new

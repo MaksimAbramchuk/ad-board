@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'account/adverts/', to: "accounts#adverts"
   post 'adverts/:id/change', to: "comments#creater"
   get 'adverts/:id/logs/', to: "adverts#logs", as: 'advert_logs' 
-  post '/search/result', to: "search#result"
+  get '/search/result', to: "search#result"
 
   resources :adverts do
     get 'change'

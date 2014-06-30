@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_current_user
+  before_filter :initialize_search
+
+  def initialize_search
+    @q = Advert.search(params[:q])
+  end
 
   protected
 

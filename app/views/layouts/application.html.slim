@@ -15,21 +15,25 @@ html lang="en"
     = javascript_include_tag :defaults, "nested_form"
 
 
-
   body
   	.navbar.navbar-inverse
   	  .navbar-inner
         .container
           a.brand href="/" Board
-          .container.nav-collapse
+          - if user_signed_in?
+            .container.nav-collapse
+              ul.nav  
+                  li = link_to "Hello, #{current_user.name}!"
+              ul class="nav pull-right"
+                li = link_to "Account", account_path
+                li = link_to "Add new advert",new_advert_path, :method => "get"
+                = search_form_for @q, html: {class:"navbar-search", style:"margin-right: 20px"} do |f|
+                  = f.text_field :description_cont, :class => "search-query", :placeholder => "Search"
+                li = link_to "Log out", destroy_user_session_path, method: "delete"
 
-            ul.nav  
-                li = link_to "Hello, #{current_user.name}!" if user_signed_in?
-            ul class="nav pull-right"
-              li = link_to "Account", account_path if user_signed_in?
-              li = link_to "Add new advert",new_advert_path, :method => "get" if user_signed_in?
-              li.vertical-algn
-              = form_for :query, html: {class:"navbar-search", style:"margin-right: 20px"}, url: { action: "result", controller: "search", method: "get"} do |f|
-                = f.text_field :description, :class => "search-query", :placeholder => "Search"
+  = yield :sidebar  
+        
   .main_block 
     = yield
+
+
