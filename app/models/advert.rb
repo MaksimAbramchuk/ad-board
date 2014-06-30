@@ -4,8 +4,10 @@ class Advert < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :category
-  has_one :comment
+  has_many :comments
   has_many :operations
+  has_many :images
+  accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, :allow_destroy => true
 
   KINDS = %w{Sale Purchase Exchange Service Rent}
 

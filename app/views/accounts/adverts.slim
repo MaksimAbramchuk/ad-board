@@ -4,6 +4,9 @@ h1 My adverts
     div
       = link_to a.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
       h3 = a.name
+    - a.images.each do |i|
+      br
+      = image_tag i.image.url(:small)
     p = a.description
     span.label.label-inverse.pull-left
       = a.kind
@@ -11,5 +14,5 @@ h1 My adverts
       = a.category.name
     span.pull-right = a.price.to_s
     br
-    br
+    br   
     = link_to "Change state", advert_change_path(a), :method => :get, :class => "btn btn-primary"
