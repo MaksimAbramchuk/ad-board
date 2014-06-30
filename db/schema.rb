@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627120246) do
+ActiveRecord::Schema.define(version: 20140630103518) do
 
   create_table "adverts", force: true do |t|
     t.string   "name"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20140627120246) do
     t.string   "comment"
     t.integer  "advert_id"
     t.integer  "operation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "operations", force: true do |t|
+    t.integer  "advert_id"
+    t.integer  "user_id"
+    t.string   "from"
+    t.string   "to"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,9 +1,12 @@
 .well
 	h4
-		= link_to "List all the users", "/users/all"
+		= link_to "List all the users", users_all_path
 		br
 		br
-		= link_to "List all the adverts awaiting publication", "/adverts/awaiting_publication"
+		= link_to "List all the adverts awaiting publication", adverts_awaiting_publication_path
 		br
 		br
-		= link_to "Change the role", "account/role"
+		= link_to "Change the role", account_role_path
+        br
+        br
+        = link_to "Edit categories", categories_path

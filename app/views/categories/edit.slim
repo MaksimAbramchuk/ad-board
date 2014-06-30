@@ -1,0 +1,9 @@
+h2
+  |Edit category
+h3
+  |Name: Sport
+= form_for @category do |f|
+  = f.label "Enter the new name:"
+  = f.text_field :name
+  br
+  = f.submit "Update category", :class => "btn btn-primary"

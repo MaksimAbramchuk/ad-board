@@ -1,0 +1,10 @@
+h1 All categories
+table
+  - @categories.each do |cat|
+    tr
+      td
+        = cat.name
+      td
+        = link_to "Edit", edit_category_path(cat)
+      td 
+        = link_to "Destroy", category_path(cat), method: :delete, data: {confirm: "Are you sure?"}

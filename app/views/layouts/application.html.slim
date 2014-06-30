@@ -29,7 +29,7 @@ html lang="en"
               li = link_to "Account", account_path if user_signed_in?
               li = link_to "Add new advert",new_advert_path, :method => "get" if user_signed_in?
               li.vertical-algn
-                form class="navbar-search" style='margin-right: 20px;'
-                  input type="text" class="search-query" placeholder="Search"
+              = form_for :query, html: {class:"navbar-search", style:"margin-right: 20px"}, url: { action: "result", controller: "search", method: "get"} do |f|
+                = f.text_field :description, :class => "search-query", :placeholder => "Search"
   .main_block 
     = yield
