@@ -3,7 +3,7 @@ h1 My adverts
   .well.well-large style='padding-top: 0px;'
     div
       = link_to a.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
-      h3 = link_to a.name, adverts_path(a), :style => 'color:black;'
+      h3 = a.name
     p = a.description
     span.label.label-inverse.pull-left
       = a.kind

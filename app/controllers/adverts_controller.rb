@@ -32,13 +32,19 @@ class AdvertsController < ApplicationController
     @advert = Advert.find(params[:advert_id])
     @advert.send(state_params[:state])
     if @advert.declined?
-      @comment = Comment.create(advert: @advert, comment: advert_params[:comment])
+      @operation = Operation.where(advert_id: @advert.id).where(user_id: current_user.id).where(to: "declined").last
+      @comment = Comment.create(advert: @advert, comment: advert_params[:comment], operation: @operation)
     end
     if @advert.save
       redirect_to account_adverts_path
     else
       render "change"
     end
+  end
+
+  def logs
+    @advert = Advert.find(params[:id])
+    @operations = Operation.where(advert_id: @advert.id)
   end
 
   protected

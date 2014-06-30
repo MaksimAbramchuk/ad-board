@@ -5,6 +5,7 @@ class Advert < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_one :comment
+  has_many :operations
 
   KINDS = %w{Sale Purchase Exchange Service Rent}
 
@@ -18,29 +19,34 @@ class Advert < ActiveRecord::Base
     state :published
     state :archived
 
-    event :send_for_publication, :after => :save_state do
+    event :send_for_publication, after: :save_state, before: :before_state do
       transitions from: [:new, :archived], to: :awaiting_publication
     end
 
-    event :archive, :after => :save_state do
+    event :archive, after: :save_state, before: :before_state do
       transitions from: [:new, :awaiting_publication, :declined, :published], to: :archived
     end
     
-    event :publish, :after => :save_state do
+    event :publish, after: :save_state, before: :before_state do
       transitions :from => :awaiting_publication, :to => :published
     end
 
-    event :decline, :after => :save_state do
+    event :decline, after: :save_state, before: :before_state do
       transitions :from => :awaiting_publication, :to => :declined
     end
 
-    event :update, :after => :save_state do
+    event :update, after: :save_state, before: :before_state do
       transitions :from => [:new, :awaiting_publication, :declined, :published], to: :new
     end
 
   end
 
+  def before_state
+    @before = self.state
+  end
+
   def save_state
+    Operation.create(user: User.current_user, from: @before, to: self.state, advert: self)
     self.save
   end
 

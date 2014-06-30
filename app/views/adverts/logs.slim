@@ -1,0 +1,6 @@
+table class="well"
+  - @operations.each do |oper|
+    tr
+      td
+        = "#{oper.user.name} has transitioned this advert from state '#{oper.from}' to '#{oper.to}' at #{oper.created_at.strftime(" %m/%d/%Y %T")}"
+        = " with comment '#{oper.comment.comment}'" if oper.comment

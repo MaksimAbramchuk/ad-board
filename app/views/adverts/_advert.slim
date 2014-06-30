@@ -8,3 +8,5 @@
     span.label.label-info.pull-left style='margin-left:3px;'
       = @advert.category.name
     span.pull-right = @advert.price.to_s+"$"
+    br
+    = button_to "See advert's logs", advert_logs_path(@advert), :class => "btn btn-primary", :method => "get" if current_user.send(:admin?) 
