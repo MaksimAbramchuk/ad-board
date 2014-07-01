@@ -1,12 +1,13 @@
 .well.well-large style='padding-top: 0px;'
     div
-      = link_to @advert.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
-      h3 = @advert.name
-    p = @advert.description
+      = link_to advert.user.name, root_path, :class => "pull-right", :style => "padding-top:10px;"
+      h3 = advert.name
+    p = advert.description
     span.label.label-inverse.pull-left
-      = @advert.kind
+      = advert.kind
     span.label.label-info.pull-left style='margin-left:3px;'
-      = @advert.category.name
-    span.pull-right = @advert.price.to_s+"$"
+      = advert.category.name
+    span.pull-right = advert.price.to_s+"$"
     br
-    = button_to "See advert's logs", advert_logs_path(@advert), :class => "btn btn-primary", :method => "get" if current_user.send(:admin?) 
+    = button_to "See logs", advert_logs_path(advert), :class => "btn btn-primary", :method => "get" if current_user.send(:admin?) 
+    = button_to "Change state", advert_change_path(advert), :method => :get, :class => "btn btn-primary"

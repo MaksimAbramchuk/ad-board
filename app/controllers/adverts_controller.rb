@@ -2,7 +2,7 @@ class AdvertsController < ApplicationController
 
   def index
     @search = Advert.search(params[:q])
-    @adverts = @search.result.where(state: :published)
+    @adverts = @search.result.where(state: :published).page params[:page]
   end
 
   def new

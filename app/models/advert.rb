@@ -1,12 +1,14 @@
 class Advert < ActiveRecord::Base
 
+  paginates_per 5
+
   scope :more_than_1_day, -> { where(state: "published").where("updated_at <= :day_ago",{day_ago: Time.now - 1.day}) }
 
   belongs_to :user
   belongs_to :category
-  has_many :comments
   has_many :operations
   has_many :images
+  has_one :comment
   accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, :allow_destroy => true
 
   KINDS = %w{Sale Purchase Exchange Service Rent}
