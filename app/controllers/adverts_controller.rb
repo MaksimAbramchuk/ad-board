@@ -23,6 +23,7 @@ class AdvertsController < ApplicationController
 
   def edit
     @advert = Advert.find(params[:id])    
+    redirect_to root_path if (@advert.user != current_user)||(current_user.send(:admin?))
   end
 
   def update

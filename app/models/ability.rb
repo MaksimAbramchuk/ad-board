@@ -7,7 +7,7 @@ class Ability
 
     user ||= User.new
       if user.role == "admin"
-        can [:archive, :publish, :decline], Advert
+        can [:modify, :archive, :publish, :decline], Advert
         can :modify, Category 
       elsif user.role == "user"
         can [:archive, :send_for_publication], Advert
