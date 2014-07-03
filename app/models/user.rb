@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 
   has_many :adverts
 
+  validates :email, :name, presence: true
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook, :vkontakte, :twitter]
 

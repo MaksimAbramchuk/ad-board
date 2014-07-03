@@ -1,0 +1,7 @@
+h2 
+  | Add new category
+= form_for @category do |f|
+  = f.label "Name:"
+  = f.text_field :name
+  br
+  = f.submit "Add category", :class => "btn btn-primary"

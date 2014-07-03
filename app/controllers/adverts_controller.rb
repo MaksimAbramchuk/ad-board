@@ -13,8 +13,11 @@ class AdvertsController < ApplicationController
   def create
     @advert = Advert.create(advert_params)
     @advert.user = current_user
-    @advert.save
-    redirect_to account_adverts_path
+    if @advert.save
+      redirect_to account_adverts_path
+    else
+      redirect_to new_advert_path
+    end
   end
 
   def awaiting_publication

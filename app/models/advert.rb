@@ -4,6 +4,8 @@ class Advert < ActiveRecord::Base
 
   scope :more_than_1_day, -> { where(state: "published").where("updated_at <= :day_ago",{day_ago: Time.now - 1.day}) }
 
+  validates :name, :description, :price, presence: true
+
   belongs_to :user
   belongs_to :category
   has_many :operations
