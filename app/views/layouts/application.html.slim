@@ -30,7 +30,11 @@ html lang="en"
                 = search_form_for @q, html: {class:"navbar-search", style:"margin-right: 20px"} do |f|
                   = f.text_field :description_cont, :class => "search-query", :placeholder => "Search"
                 li = link_to "Log out", destroy_user_session_path, method: "delete"
-
+          - if !user_signed_in?
+            .container.nav-collapse
+              ul.nav.pull-right
+                li = link_to "Sign in", new_user_session_path
+                li = link_to "Sign up", new_user_registration_path 
   = yield :sidebar  
         
   .main_block 

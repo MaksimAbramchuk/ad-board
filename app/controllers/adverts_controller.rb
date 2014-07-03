@@ -1,5 +1,7 @@
 class AdvertsController < ApplicationController
 
+  skip_before_action :authenticate_user!, only: :index
+
   def index
     @search = Advert.search(params[:q])
     @adverts = @search.result.where(state: :published).page params[:page]
@@ -7,7 +9,6 @@ class AdvertsController < ApplicationController
 
   def new
     @advert = Advert.new
-    @categories = Category.all
   end
 
   def create
@@ -17,6 +18,19 @@ class AdvertsController < ApplicationController
       redirect_to account_adverts_path
     else
       redirect_to new_advert_path
+    end
+  end
+
+  def edit
+    @advert = Advert.find(params[:id])    
+  end
+
+  def update
+    @advert = Advert.find(params[:id])
+    if @advert.update(advert_params)
+      redirect_to root_path
+    else
+      redirect_to edit_advert_path(advert)
     end
   end
 
@@ -42,7 +56,7 @@ class AdvertsController < ApplicationController
     if @advert.save
       redirect_to account_adverts_path
     else
-      render "change"
+      redirect_to advert_change_path(@advert)
     end
   end
 
@@ -54,7 +68,7 @@ class AdvertsController < ApplicationController
   protected
   
   def advert_params
-    params.require(:advert).permit(:name, :description, :price, :comment, :category_id, :kind, images_attributes: [:id,:image,:_destroy])
+    params.require(:advert).permit(:name, :description, :price, :comment, :state, :category_id, :kind, images_attributes: [:id,:image,:_destroy])
   end
 
   def state_params

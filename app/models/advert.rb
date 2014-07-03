@@ -41,10 +41,6 @@ class Advert < ActiveRecord::Base
       transitions :from => :awaiting_publication, :to => :declined
     end
 
-    event :update, after: :save_state, before: :before_state do
-      transitions :from => [:new, :awaiting_publication, :declined, :published], to: :new
-    end
-
   end
 
   def before_state

@@ -9,5 +9,8 @@
       = advert.category.name
     span.pull-right = advert.price.to_s+"$"
     br
-    = button_to "See logs", advert_logs_path(advert), :class => "btn btn-primary", :method => "get" if current_user.send(:admin?) 
-    = button_to "Change state", advert_change_path(advert), :method => :get, :class => "btn btn-primary"
+    - if user_signed_in?
+      = link_to "See logs", advert_logs_path(advert), :class => "btn btn-primary" if current_user.send(:admin?) 
+      = link_to "Change state", advert_change_path(advert), :class => "btn btn-primary"
+      - if current_user.send(:admin?) || advert.user == current_user
+        = link_to "Edit advert", edit_advert_path(advert), :class => "btn btn-primary"

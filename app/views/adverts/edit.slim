@@ -1,0 +1,14 @@
+= nested_form_for @advert do |f|
+  = f.label "Name:"
+  = f.text_field :name
+  = f.label "Description:"
+  = f.text_field :description
+  = f.label "Category:"
+  = f.select :category_id, Category.pluck(:name, :id)
+  = f.label "Type:"
+  = f.collection_select :kind, Advert::KINDS, :to_s, :titleize
+  = f.label "Price:"
+  = f.number_field :price, step: 0.1
+  = f.hidden_field :state, :value => "new"
+  br
+  = f.submit "Update", class: "btn btn-success"
