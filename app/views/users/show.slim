@@ -1,4 +1,7 @@
-h1.text-center 
-  = @user.name
+.text-center
+	h1 
+	  = @user.name
+	h5
+	  = @user.email
 - if current_user.send(:admin?)
   = render partial: "users_publication"

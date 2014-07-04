@@ -2,7 +2,10 @@ class Advert < ActiveRecord::Base
 
   paginates_per 5
 
-  scope :more_than_1_day, -> { where(state: "published").where("updated_at <= :day_ago",{day_ago: Time.now - 1.day}) }
+  scope :more_than_1_day, -> { where(state: 'published').where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }) }
+  scope :published, -> { where(state: :published).order(updated_at: :desc) }
+  scope :awaiting_publication, -> { where(state: 'awaiting_publication').order(updated_at: :desc) }
+  scope :declined, -> { where(state: 'declined').order(updated_at: :desc) }
 
   validates :name, :description, :price, presence: true
 
@@ -11,15 +14,15 @@ class Advert < ActiveRecord::Base
   has_many :operations
   has_many :images
   has_one :comment
-  accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, :allow_destroy => true
+  accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, allow_destroy: true
 
-  KINDS = %w{Sale Purchase Exchange Service Rent}
+  KINDS = %w(Sale Purchase Exchange Service Rent)
 
   include AASM
 
-  aasm column: "state" do
+  aasm column: 'state' do
 
-    state :new, :initial => true
+    state :new, initial: true
     state :awaiting_publication
     state :declined
     state :published
@@ -34,11 +37,11 @@ class Advert < ActiveRecord::Base
     end
     
     event :publish, after: :save_state, before: :before_state do
-      transitions :from => :awaiting_publication, :to => :published
+      transitions from: :awaiting_publication, to: :published
     end
 
     event :decline, after: :save_state, before: :before_state do
-      transitions :from => :awaiting_publication, :to => :declined
+      transitions from: :awaiting_publication, to: :declined
     end
 
   end

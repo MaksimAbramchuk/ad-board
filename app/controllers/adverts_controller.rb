@@ -4,7 +4,7 @@ class AdvertsController < ApplicationController
 
   def index
     @search = Advert.search(params[:q])
-    @adverts = @search.result.where(state: :published).page params[:page]
+    @adverts = @search.result.published.page params[:page]
   end
 
   def new
@@ -22,8 +22,8 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    @advert = Advert.find(params[:id])    
-     redirect_to root_path if (@advert.user != current_user)&&!current_user.send(:admin?)
+    @advert = Advert.find(params[:id])
+    redirect_to root_path if (@advert.user != current_user) && !current_user.send(:admin?)
   end
 
   def update
@@ -39,19 +39,19 @@ class AdvertsController < ApplicationController
     unless current_user.send(:admin?)
       redirect_to root_path
     end
-    @adverts = Advert.where(state: "awaiting_publication").order(updated_at: :desc)
+    @adverts = Advert.awaiting_publication
   end
 
   def change
-    @advert = Advert.find(params[:advert_id]) 
-    @comment = Comment.new 
+    @advert = Advert.find(params[:advert_id])
+    @comment = Comment.new
   end
 
   def change_state
     @advert = Advert.find(params[:advert_id])
     @advert.send(state_params[:state])
     if @advert.declined?
-      @operation = Operation.where(advert_id: @advert.id).where(user_id: current_user.id).where(to: "declined").last
+      @operation = Operation.find_according(@advert)
       @comment = Comment.create(advert: @advert, comment: advert_params[:comment], operation: @operation)
     end
     if @advert.save
@@ -63,13 +63,13 @@ class AdvertsController < ApplicationController
 
   def logs
     @advert = Advert.find(params[:id])
-    @operations = Operation.where(advert_id: @advert.id).order(created_at: :desc)
+    @operations = Operation.list_all(@advert)
   end
 
   protected
   
   def advert_params
-    params.require(:advert).permit(:name, :description, :price, :comment, :state, :category_id, :kind, images_attributes: [:id,:image,:_destroy])
+    params.require(:advert).permit(:name, :description, :price, :comment, :state, :category_id, :kind, images_attributes: [:id, :image, :_destroy])
   end
 
   def state_params

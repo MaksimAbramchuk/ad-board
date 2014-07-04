@@ -11,10 +11,10 @@ class AccountsController < ApplicationController
   end
 
   def index
-    if current_user.role == "admin"
-      render "admin_account"
-    elsif current_user.role == "user"
-      render "user_account"
+    if current_user.send(:admin?)
+      render 'admin_account'
+    else
+      render 'user_account'
     end
   end
   
