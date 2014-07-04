@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
   end
 
   def redirect_if_not_admin
-    unless current_user.send(:admin?)
+    unless can? :modify, Category
       redirect_to root_path
     end
   end
