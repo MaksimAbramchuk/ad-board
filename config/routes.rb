@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'account', to: "accounts#index"
   get 'adverts/awaiting_publication', to: "adverts#awaiting_publication"
   get 'users/all', to: "users#all"
-  get 'users/:id/', to: "users#show"
+  get 'users/:id/', to: "users#show", as: 'user'
   get 'account/adverts/', to: "accounts#adverts"
   post 'adverts/:id/change', to: "comments#creater"
   get 'adverts/:id/logs/', to: "adverts#logs", as: 'advert_logs' 

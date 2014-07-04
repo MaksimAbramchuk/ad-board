@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
   end
   
   def adverts
-    @adverts = current_user.adverts.order(updated_at: :desc)
+    @adverts = current_user.adverts.order(updated_at: :desc).page params[:page]
   end
 
   protected

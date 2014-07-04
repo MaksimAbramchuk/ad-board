@@ -1,18 +1,20 @@
-= nested_form_for @advert do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :description
-  = f.text_area :description
-  = f.label :category
-  = f.select :category_id, Category.pluck(:name, :id)
-  = f.label :type
-  = f.collection_select :kind, Advert::KINDS, :to_s, :titleize
-  = f.label :price
-  = f.number_field :price,step: 0.1
-  = f.fields_for :images do |builder|
-    = builder.label :image, "Image File" 
-    = builder.file_field :image
-    = builder.link_to_remove "Remove Image"
-  p = f.link_to_add "Add Image",:images
-  br
-  =f.submit "Submit",class: "btn btn-success"
+.text-center
+  h2 New advert 
+  = nested_form_for @advert do |f|
+    = f.label :name
+    = f.text_field :name
+    = f.label :description
+    = f.text_area :description
+    = f.label :category
+    = f.select :category_id, Category.pluck(:name, :id)
+    = f.label :type
+    = f.collection_select :kind, Advert::KINDS, :to_s, :titleize
+    = f.label :price
+    = f.number_field :price,step: 0.1
+    = f.fields_for :images do |builder|
+      = builder.label :image, "Image File" 
+      = builder.file_field :image
+      = builder.link_to_remove "Remove Image"
+    p = f.link_to_add "Add Image",:images
+    br
+    =f.submit "Add advert",class: "btn btn-success"

@@ -23,7 +23,7 @@ class AdvertsController < ApplicationController
 
   def edit
     @advert = Advert.find(params[:id])    
-    redirect_to root_path if (@advert.user != current_user)||(current_user.send(:admin?))
+     redirect_to root_path if (@advert.user != current_user)&&!current_user.send(:admin?)
   end
 
   def update
@@ -63,7 +63,7 @@ class AdvertsController < ApplicationController
 
   def logs
     @advert = Advert.find(params[:id])
-    @operations = Operation.where(advert_id: @advert.id)
+    @operations = Operation.where(advert_id: @advert.id).order(created_at: :desc)
   end
 
   protected

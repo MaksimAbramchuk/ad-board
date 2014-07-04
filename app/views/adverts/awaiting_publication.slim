@@ -1,2 +1,5 @@
-h1 Adverts, awaiting publication
-= render @adverts
+- if @adverts.empty?
+  h3.text-center There are no adverts, awaiting publication at the moment
+- else
+  h2.text-center Adverts, awaiting publication
+  = render @adverts

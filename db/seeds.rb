@@ -2,7 +2,7 @@
 #You can easily log in as common user with email: "user(1..5)@gmail.com" and password: "password", for example: email: "user5@gmail.com" password: "password"
 
 CATEGORIES = %w{Sport Audio Video Furniture Health Phones Computers Children House IT Food Medicine Business}
-STATES = %w{published archived new}
+STATES = %w{published archived new awaiting_publication}
 ROLES = %w{admin user}
 MODELS = %w{Advert User Comment Category Image Operation}
 

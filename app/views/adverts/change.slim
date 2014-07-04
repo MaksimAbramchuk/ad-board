@@ -1,14 +1,14 @@
 = render @advert
 
-h4
+h4.text-center
   = "Current state is '#{@advert.state.humanize}'. Change it to:" 
-= form_for @advert, url: { action: "change_state", controller: "adverts" }, method: "patch" do |f|
+= form_for @advert, url: { action: "change_state", controller: "adverts" }, method: "patch", html: {class: "text-center"} do |f|
   = f.select :state, available_states_for(@advert)
   div.comment_label
   	= f.label "Comment:", :class => "comment_label"
   	= f.text_area :comment, :style => "display:none";
   br
-  = f.submit "Change state", :class => "btn btn-primary"
+  = f.submit "Change state", :class => "btn btn-success"
 
 script
   | $('#advert_state').on('change', displayComments); displayComments();

@@ -20,3 +20,7 @@
 .form-class input{
 	width: 100%;
 }
+.main_table{
+	display: block;
+	width: 100%;
+}

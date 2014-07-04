@@ -2,12 +2,12 @@ class User < ActiveRecord::Base
 
   has_many :adverts
 
-  validates :email, :name, presence: true
+  validates :email, presence: true
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook, :vkontakte, :twitter]
 
-  ROLES = %w{admin user guest}
+  ROLES = %w{admin user}
 
   class << self
 
