@@ -11,6 +11,7 @@ development:
 test:
   adapter: postgresql
   database: project_test
+  host: localhost
   pool: 5
   timeout: 5000
   username: username

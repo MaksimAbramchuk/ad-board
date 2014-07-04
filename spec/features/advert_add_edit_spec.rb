@@ -14,7 +14,6 @@ RSpec.describe 'Advert Functional', type: :features do
     fill_in 'advert_description', with: 'test_description'
     fill_in 'advert_price', with: '1000'
     page.find('input.btn').click
-    
     expect(page).to have_content 'test_advert_name'
   end
 
