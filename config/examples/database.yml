@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: project_development
+  host: localhost
+  pool: 5
+  username: username
+  password: 123
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: project_test
+  pool: 5
+  timeout: 5000
+  username: username
+  password: 123
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: foo
+  port: 5432
+  host: foobar.amazonaws.com
+  username: username
+  password: 123
