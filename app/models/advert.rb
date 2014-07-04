@@ -1,6 +1,6 @@
 class Advert < ActiveRecord::Base
 
-  paginates_per 5
+  paginates_per 10
 
   scope :more_than_1_day, -> { where(state: 'published').where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }) }
   scope :published, -> { where(state: :published).order(updated_at: :desc) }

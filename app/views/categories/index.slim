@@ -1,11 +1,11 @@
 h1.text-center All categories
-table.well.well-large style='width: 200px; margin: 0 auto;'
+table.well.well-large style='width: 200px; margin: 0 auto; display: block'
   - @categories.each do |cat|
     tr
-      td
+      td style='padding: 5px;'
         = cat.name
-      td
+      td style='padding: 5px;'
         = link_to "Edit", edit_category_path(cat)
-      td 
+      td style='padding-left: 10px;'
         = link_to "Destroy", category_path(cat), method: :delete, data: {confirm: "Are you sure?"}
 = link_to "Add new category", new_category_path, :class => "btn btn-success", :style=>'width: 130px;display: block; margin: 20px auto;'

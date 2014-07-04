@@ -1,8 +1,4 @@
-.text-center	
-	h3
-	  |Sport
-	= form_for @category do |f|
-	  = f.label "Enter the new name:"
-	  = f.text_field :name
-	  br
-	  = f.submit "Update category", :class => "btn btn-success"
+.text-center
+  h3
+    = @category.name
+  = render 'form'

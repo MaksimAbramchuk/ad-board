@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Advert Functional', type: :features do
+  
   it 'Should Add New Advert' do
     visit('users/sign_up')
     fill_in 'user_name', with: 'test_name'
