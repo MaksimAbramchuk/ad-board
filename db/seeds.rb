@@ -1,5 +1,5 @@
-#You can easily log in as admin with email: "admin(1..5)@gmail.com" and password: "password", for example: email: "admin3@gmail.com" password: "password"
-#You can easily log in as common user with email: "user(1..5)@gmail.com" and password: "password", for example: email: "user5@gmail.com" password: "password"
+#Log in as admin with email: "admin(1..5)@gmail.com" and password: "password", for example: email: "admin3@gmail.com" password: "password"
+#Log in as common user with email: "user(1..5)@gmail.com" and password: "password", for example: email: "user5@gmail.com" password: "password"
 
 CATEGORIES = %w{Sport Audio Video Furniture Health Phones Computers Children House IT Food Medicine Business}
 STATES = %w{published archived new awaiting_publication}

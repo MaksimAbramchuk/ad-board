@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140630210144) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "adverts", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20140630210144) do
     t.datetime "updated_at"
   end
 
-  add_index "images", ["advert_id"], name: "index_images_on_advert_id"
+  add_index "images", ["advert_id"], name: "index_images_on_advert_id", using: :btree
 
   create_table "operations", force: true do |t|
     t.integer  "advert_id"
@@ -79,7 +82,7 @@ ActiveRecord::Schema.define(version: 20140630210144) do
     t.string   "name"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token"
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
 
 end

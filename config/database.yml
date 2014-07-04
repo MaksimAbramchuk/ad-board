@@ -5,16 +5,22 @@
 #   gem 'sqlite3'
 #
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: project_development
+  host: localhost
   pool: 5
+  username: max_abramchuck
+  password: 123
   timeout: 5000
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  database: project_test
   pool: 5
   timeout: 5000
+  username: max_abramchuck
+  password: 123
 
 production:
   adapter: postgresql
@@ -22,5 +28,5 @@ production:
   database: foo
   port: 5432
   host: foobar.amazonaws.com
-  username: foo
-  password: bar
+  username: max_abramchuck
+  password: 123
