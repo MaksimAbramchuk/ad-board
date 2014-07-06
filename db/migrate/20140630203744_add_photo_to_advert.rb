@@ -10,6 +10,6 @@ class AddPhotoToAdvert < ActiveRecord::Migration
       remove_column :adverts, :photo_file_name
       remove_column :adverts, :photo_content_type
       remove_column :adverts, :photo_file_size
-    end 
+    end
   end
 end

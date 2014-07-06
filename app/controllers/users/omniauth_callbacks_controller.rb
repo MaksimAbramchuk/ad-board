@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  
+
   providers = %w(facebook vkontakte twitter)
   providers.each do |provider|
     define_method(provider.to_sym) do

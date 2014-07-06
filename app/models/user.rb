@@ -24,16 +24,17 @@ class User < ActiveRecord::Base
     def current_user
       Thread.current[:user]
     end
-    
+
     def current_user=(user)
       Thread.current[:user] = user
     end
-  
+
   end
-  
+
   protected
-  
+
   def admin?
     User.current_user.role == 'admin'
   end
+
 end

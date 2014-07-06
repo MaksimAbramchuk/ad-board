@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Advert Functional', type: :features do
-  
+
   before(:each) do
     CATEGORIES = %w(Sport Audio Video Furniture Health Phones Computers Children House IT Food Medicine Business)
     CATEGORIES.each { |category| Category.find_or_create_by(name: category) }
@@ -38,7 +38,6 @@ RSpec.describe 'Advert Functional', type: :features do
     page.find('input.btn').click
     expect(page).to have_content 'test_advert_name'
 
-    
   end
 
 end

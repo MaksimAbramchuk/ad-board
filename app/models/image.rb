@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  
+
   belongs_to :advert
 
   has_attached_file :image, styles: { small: '150×150', large: '320×240' }

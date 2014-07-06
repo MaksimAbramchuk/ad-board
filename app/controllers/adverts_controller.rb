@@ -67,7 +67,7 @@ class AdvertsController < ApplicationController
   end
 
   protected
-  
+
   def advert_params
     params.require(:advert).permit(:name, :description, :price, :comment, :state, :category_id, :kind, images_attributes: [:id, :image, :_destroy])
   end
