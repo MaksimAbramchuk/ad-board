@@ -270,7 +270,6 @@ DEPENDENCIES
   devise
   fabrication
   faker
-  hashie
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
