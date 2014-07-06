@@ -29,6 +29,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    app_config (2.5.1)
     arel (5.0.1.20140414130214)
     ast (2.0.0)
     bcrypt (3.1.7)
@@ -204,6 +205,9 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    simple_form (3.0.2)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -258,6 +262,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  app_config
   cancancan (~> 1.8)
   capybara
   capybara-webkit
@@ -265,6 +270,7 @@ DEPENDENCIES
   devise
   fabrication
   faker
+  hashie
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
@@ -284,6 +290,7 @@ DEPENDENCIES
   rspec-rails (~> 2.14.2)
   rubocop
   sdoc (~> 0.4.0)
+  simple_form
   slim-rails
   spring
   therubyracer

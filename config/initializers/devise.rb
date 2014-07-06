@@ -12,9 +12,10 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
   config.scoped_views = true
-  config.omniauth :facebook, '526887810770201', 'db6c7f947b4b40862e54340d6a1af3c2',strategy_class: OmniAuth::Strategies::Facebook
-  config.omniauth :vkontakte, '4411921', 'aBamPOFuJoxwwPAWChgJ'
-  config.omniauth :twitter, 'L9hNcEDguODL3SYoU3hpyzroY', 'L7nz5K69eQ1RcKlSl9zQoUmWlSchpJLFUiW1uGwC2JZ9QE1e4n'
+  AppConfig.setup!(yaml: "#{Rails.root}/config/appconfig.defaults.yml")
+  config.omniauth :facebook, AppConfig.omniauth['facebook']['key'], AppConfig.omniauth['facebook']['secret'],strategy_class: OmniAuth::Strategies::Facebook
+  config.omniauth :vkontakte, AppConfig.omniauth['vkontakte']['key'], AppConfig.omniauth['vkontakte']['secret']
+  config.omniauth :twitter, AppConfig.omniauth['twitter']['key'], AppConfig.omniauth['twitter']['secret']
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
