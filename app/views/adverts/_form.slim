@@ -6,7 +6,7 @@
   = f.label :category
   = f.select :category_id, Category.pluck(:name, :id)
   = f.label :type
-  = f.collection_select :kind, Advert::KINDS, :to_s, :titleize
+  = f.select :kind, Advert.kind.options
   = f.label :price
   = f.number_field :price,step: 0.1
   = f.fields_for :images do |builder|

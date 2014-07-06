@@ -1,6 +1,6 @@
 .text-center
 	h1 You role is #{current_user.role}
 	= form_for :user, url: {controller: "accounts", action: "change_role"} do |f|
-	  = f.collection_select :role, User::ROLES, :to_s, :humanize
+	  = f.select :role, User.role.options
 	  br
 	  = f.submit "Change role", :class => "btn btn-success"    

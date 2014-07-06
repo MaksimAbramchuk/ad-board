@@ -19,6 +19,7 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'app_config'
 gem 'simple_form'
+gem 'enumerize'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'

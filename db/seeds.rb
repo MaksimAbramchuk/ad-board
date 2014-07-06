@@ -5,6 +5,7 @@ CATEGORIES = %w(Sport Audio Video Furniture Health Phones Computers Children Hou
 STATES = %w(published archived new awaiting_publication)
 ROLES = %w(admin user)
 MODELS = %w(Advert User Comment Category Image Operation)
+KINDS = %w(Sale Purchase Exchange Service Rent)
 
 MODELS.each { |model| model.constantize.destroy_all }
 CATEGORIES.each { |category| Category.find_or_create_by(name: category) }
@@ -13,7 +14,7 @@ ROLES.each do |role|
   2.times do |i|
     @user = User.create(name: Faker::Name.name, password: 'password', password_confirmation: 'password', email: "#{role}#{i}@gmail.com", role: role)
     p "User with password '#{@user.email}' and password '#{@user.password}' has been created"
-    Advert::KINDS.each do |kind|
+    KINDS.each do |kind|
       STATES.each do |state|
         @advert = Advert.create(name: Faker::Commerce.product_name, description: Faker::Lorem.sentence(20), price: rand(1..10000), state: state, kind: kind, user: @user, category: Category.all.sample)
       end

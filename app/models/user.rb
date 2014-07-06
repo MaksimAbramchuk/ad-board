@@ -6,8 +6,9 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, omniauth_providers: [:facebook, :vkontakte, :twitter]
-
-  ROLES = %w(admin user)
+  
+  extend Enumerize
+  enumerize :role, in: [:user, :admin]
 
   class << self
 

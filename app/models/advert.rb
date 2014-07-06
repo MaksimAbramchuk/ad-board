@@ -16,10 +16,10 @@ class Advert < ActiveRecord::Base
   has_one :comment
   accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, allow_destroy: true
 
-  KINDS = %w(Sale Purchase Exchange Service Rent)
+  extend Enumerize
+  enumerize :kind, in: [:sale, :purchase, :exchange, :service, :rent]
 
   include AASM
-
   aasm column: 'state' do
 
     state :new, initial: true
