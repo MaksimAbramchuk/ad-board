@@ -1,5 +1,4 @@
-h1 All users
-table
-  - @users.each do |u|
-    tr
-      td = link_to u.name+", "+u.email, "/users/"+u.id.to_s+"/"
+h1 All the users
+- @users.each do |u|
+  h5
+    = link_to u.name+", "+u.email, user_path(u)
