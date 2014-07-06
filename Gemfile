@@ -9,8 +9,6 @@ gem 'kaminari'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'paperclip', '~> 4.1'
-gem 'nested_form'
-gem 'sidekiq'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -19,7 +17,6 @@ gem 'omniauth-gplus'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
-
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
