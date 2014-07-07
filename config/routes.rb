@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   root 'adverts#index'
 
   get 'account', to: 'accounts#index'
-  get 'account/role', to: 'accounts#role'
-  post 'account/role/change', to: 'accounts#change_role'
   get 'account/adverts/', to: 'accounts#adverts'
 
   get '/search/result', to: 'search#result'

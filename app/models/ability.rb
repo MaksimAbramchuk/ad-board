@@ -11,6 +11,7 @@ class Ability
       can :modify, Category
       can :change, User
       can :see_publications, User
+      can :change_role, User
     elsif user.role.user?
       can [:edit, :see_logs, :change_state], Advert, user_id: user.id
       can :change, User, id: user.id

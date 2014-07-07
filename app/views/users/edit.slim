@@ -1,8 +1,12 @@
+h3 Edit user:
 = nested_form_for @user do |f|
   = f.label :name
   = f.text_field :name
   = f.label :email
   = f.text_field :email
+  - if can? :change_role, @user
+    = f.label :role
+    = f.select :role, User.role.options
   = f.fields_for :avatar do |builder|
     = builder.label :image, "Change avatar"
     = builder.file_field :image

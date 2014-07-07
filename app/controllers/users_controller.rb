@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user.build_avatar unless @user.avatar
   end
 
   def update
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:name, :email, avatar_attributes: [:id, :image, :_destroy])
+    params.require(:user).permit(:name, :email, :role, avatar_attributes: [:id, :image, :_destroy])
   end
 
 end

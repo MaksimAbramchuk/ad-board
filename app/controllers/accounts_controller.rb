@@ -1,20 +1,10 @@
 class AccountsController < ApplicationController
 
-  def role
-    @role = current_user.role
-  end
-
-  def change_role
-    current_user.update(role_params)
-    current_user.save
-    redirect_to :back
-  end
-
   def index
-    if current_user.send(:admin?)
-      render 'admin_account'
+    if current_user.role.admin?
+      render :admin_account
     else
-      render 'user_account'
+      render :user_account
     end
   end
 
