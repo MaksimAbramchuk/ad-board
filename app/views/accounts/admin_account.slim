@@ -1,12 +1,15 @@
 .well.text-center
-	h4
-		= link_to "List all the users", users_path
-		br
-		br
-		= link_to "List all the adverts awaiting publication", awaiting_publication_adverts_path
-		br
-		br
-		= link_to "Change the role", account_role_path
-        br
-        br
-        = link_to "Edit categories", categories_path
+  h4
+    = link_to "Profile", user_path(current_user)
+    br
+    br
+    = link_to "List all the users", users_path
+    br
+    br
+    = link_to "List all the adverts awaiting publication", awaiting_publication_adverts_path
+    br
+    br
+    = link_to "Change the role", account_role_path
+    br
+    br
+    = link_to "Edit categories", categories_path

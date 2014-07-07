@@ -1,6 +1,9 @@
 .well.text-center
-	h4
-		= link_to "My adverts", "account/adverts/"
-		br
-		br
-		= link_to "Change the role", "account/role"
+  h4
+    = link_to "Profile", user_path(current_user)
+    br
+    br
+    = link_to "My adverts", "account/adverts/"
+    br
+    br
+    = link_to "Change the role", "account/role"

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get 'logs'
   end
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :edit, :update]
   resources :categories
 
 end

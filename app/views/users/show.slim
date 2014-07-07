@@ -1,7 +1,13 @@
 .text-center
-	h1 
-	  = @user.name
-	h5
-	  = @user.email
-- if current_user.send(:admin?)
+  - if can? :change, @user
+    h4
+      = link_to "Edit profile", edit_user_path(@user)
+  - if @user.avatar
+    = image_tag @user.avatar.image.url(:large)
+  h1
+    = @user.name
+  h5
+    = @user.email
+
+- if can? :see_publications, User
   = render partial: "users_publication"

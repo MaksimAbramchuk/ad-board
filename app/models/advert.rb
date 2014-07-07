@@ -12,7 +12,7 @@ class Advert < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :operations
-  has_many :images, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
   has_one :comment
   accepts_nested_attributes_for :images, reject_if: ->(t) { t['image'].nil? }, allow_destroy: true
 

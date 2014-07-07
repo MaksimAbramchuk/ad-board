@@ -1,12 +1,15 @@
 class User < ActiveRecord::Base
 
   has_many :adverts
+  has_one :avatar, class_name: :Image, as: :imageable
 
   validates :email, :name, presence: true
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, omniauth_providers: [:facebook, :vkontakte, :twitter]
   
+  accepts_nested_attributes_for :avatar, reject_if: ->(t) { t['image'].nil? }, allow_destroy: true
+
   extend Enumerize
   enumerize :role, in: [:user, :admin]
 

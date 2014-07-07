@@ -1,0 +1,10 @@
+= nested_form_for @user do |f|
+  = f.label :name
+  = f.text_field :name
+  = f.label :email
+  = f.text_field :email
+  = f.fields_for :avatar do |builder|
+    = builder.label :image, "Change avatar"
+    = builder.file_field :image
+  br
+  =f.submit "Submit",class: "btn btn-success"
