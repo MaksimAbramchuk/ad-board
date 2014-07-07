@@ -7,6 +7,10 @@ h3 Edit user:
   - if can? :change_role, @user
     = f.label :role
     = f.select :role, User.role.options
+  - if @user.avatar
+    br
+    = f.label 'Current avatar'
+    = image_tag @user.avatar.image.url(:small)
   = f.fields_for :avatar do |builder|
     = builder.label :image, "Change avatar"
     = builder.file_field :image

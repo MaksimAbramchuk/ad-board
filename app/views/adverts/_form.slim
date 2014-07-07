@@ -9,8 +9,14 @@
   = f.select :kind, Advert.kind.options
   = f.label :price
   = f.number_field :price,step: 0.1
+  = f.hidden_field :state, value: :new
+  - if @advert.images
+    = f.label 'Attached images:'
+    - @advert.images.each do |img|
+      = image_tag img.image.url
+      br
+  = f.label 'Upload images'
   = f.fields_for :images do |builder|
-    = builder.label :image, "Image File" 
     = builder.file_field :image
     = builder.link_to_remove "Remove Image"
   p = f.link_to_add "Add Image",:images
