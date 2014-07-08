@@ -1,36 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe 'Advert sorting', type: :features do
+RSpec.describe 'State changing', type: :features do
 
-  it 'Should sort adverts by price' do
-    @user = Fabricate(:user)
-    @adverts = 20.times.map { Fabricate(:advert) }.each { |a| a.price = a.id; a.save }
-    smallest_price = Advert.first.price
-    highest_price = Advert.last.price
+  it 'Should archive adverts' do
+    @advert = Fabricate(:advert)
+    @user = @advert.user
     visit new_user_session_path
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
     page.find('input.button').click
-    page.find_link('Price').click
-    expect(page).to have_content smallest_price
-    page.find_link('Price').click
-    expect(page).to have_content highest_price
+    page.find('a.dropdown-toggle').click
+    page.find_link('Change state').click
+    select('archive', from: 'advert_state')
+    page.find('input.btn-success').click
+    expect(page).to have_content 'archived'
   end
 
-  it 'Should sort adverts by date' do
-    @user = Fabricate(:user)
-    @adverts = 20.times.map { Fabricate(:advert) }.each { |a| a.updated_at+=a.id; a.save }
-    oldest_advert_time = Advert.first.updated_at.strftime(' %m/%d/%Y at %T')
-    newest_advert_time = Advert.last.updated_at.strftime(' %m/%d/%Y at %T')
+  it 'Should decline advert with comment', js: true do
+    @advert = Fabricate(:advert) { state 'awaiting_publication' }
+    @user = @advert.user
     visit new_user_session_path
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
     page.find('input.button').click
-    page.find_link('Date').click
-    save_and_open_page
-    expect(page).to have_content oldest_advert_time
-    page.find_link('Date').click
-    expect(page).to have_content newest_advert_time
+    visit awaiting_publication_adverts_path
+    page.find('a.dropdown-toggle').click
+    page.find_link('Change state').click
+    select('decline', from: 'advert_state')
+    fill_in 'advert_comment', with: 'test_comment'
+    page.find_button('Change state').click
+    visit logs_advert_path(@advert)
+    expect(page).to have_content 'test_comment'
   end
-
 end

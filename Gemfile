@@ -33,6 +33,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'fabrication'
+  gem 'database_cleaner'
 end
 
 gem 'rails', '4.1.0'
