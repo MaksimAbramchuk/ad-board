@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
 
   before_action :redirect_if_not_admin
+  load_and_authorize_resource only: [:edit, :update, :destroy]
 
   def index
     @categories = Category.all

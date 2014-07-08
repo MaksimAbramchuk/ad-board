@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/search/result', to: 'search#result'
 
   resources :adverts do
-    get 'change'
+    get 'change' => 'adverts#change'
     match 'change' => 'adverts#change_state', via: [:put, :patch]
     get 'awaiting_publication', on: :collection
     get 'logs'

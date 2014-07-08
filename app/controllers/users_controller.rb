@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-
+  
+  load_and_authorize_resource except: [:index]
+  
   def index
     @users = User.all
   end
@@ -10,18 +12,14 @@ class UsersController < ApplicationController
       @awaiting = @user.adverts.awaiting_publication
       @declined = @user.adverts.declined
       @published = @user.adverts.published
-    else
-      @user = User.find(params[:id])
     end
   end
 
   def edit
-    @user = User.find(params[:id])
     @user.build_avatar unless @user.avatar
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to user_path(@user)
     else

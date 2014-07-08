@@ -1,6 +1,7 @@
 class AdvertsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: :index
+  load_and_authorize_resource only: [:edit, :update]
 
   def index
     @search = Advert.search(params[:q])
@@ -22,12 +23,10 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    @advert = Advert.find(params[:id])
-    redirect_to root_path if (@advert.user != current_user) && !current_user.send(:admin?)
+    redirect_to root_path if (@advert.user != current_user) && !current_user.role.admin?
   end
 
   def update
-    @advert = Advert.find(params[:id])
     if @advert.update(advert_params)
       redirect_to root_path
     else
@@ -36,7 +35,7 @@ class AdvertsController < ApplicationController
   end
 
   def awaiting_publication
-    unless current_user.send(:admin?)
+    unless current_user.role.admin?
       redirect_to root_path
     end
     @adverts = Advert.awaiting_publication
@@ -62,7 +61,7 @@ class AdvertsController < ApplicationController
   end
 
   def logs
-    @advert = Advert.find(params[:id])
+    @advert = Advert.find(params[:advert_id])
     @operations = Operation.list_all(@advert)
   end
 

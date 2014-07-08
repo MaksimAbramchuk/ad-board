@@ -13,7 +13,7 @@ module AdvBoard
     config.generators do |g|
       g.stylesheets = false
       g.javascripts = false
-      g.helpers = false
+      g.helper = false
       g.test_framework :rspec
     end
     # Settings in config/environments/* take precedence over those specified here.

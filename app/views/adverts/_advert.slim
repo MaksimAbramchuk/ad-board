@@ -19,6 +19,10 @@
       td
         span
           = advert.description
+    tr 
+      td
+        - advert.images.each do |image|
+          = image_tag image.image.url(:large)
     tr
       td style='padding-top: 6px;'
         span.label.label-inverse.pull-left
