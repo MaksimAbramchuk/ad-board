@@ -3,6 +3,7 @@ Fabricator(:advert) do
   description { Faker::Lorem.sentence(10) }
   category { Fabricate(:category) }
   user { Fabricate(:user) }
+  kind 'sale'
   price 10000
   state 'published'
 end
