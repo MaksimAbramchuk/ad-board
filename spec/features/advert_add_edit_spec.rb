@@ -2,42 +2,33 @@ require 'rails_helper'
 
 RSpec.describe 'Advert Functional', type: :features do
 
-  before(:each) do
-    CATEGORIES = %w(Sport Audio Video Furniture Health Phones Computers Children House IT Food Medicine Business)
-    CATEGORIES.each { |category| Category.find_or_create_by(name: category) }
-  end
-
   it 'Should Add New Advert' do
-    visit('users/sign_up')
-    fill_in 'user_name', with: 'test_name'
-    fill_in 'user_email', with: 'email@gmail.com'
-    fill_in 'user_password', with: 'password'
-    fill_in 'user_password_confirmation', with: 'password'
+    @category = Fabricate(:category)
+    visit new_user_session_path
+    fill_in 'user_email', with: Fabricate(:user).email
+    fill_in 'user_password', with: Fabricate(:user).password
     page.find('input.button').click
-
     visit('adverts/new')
     fill_in 'advert_name', with: 'test_advert_name'
     fill_in 'advert_description', with: 'test_description'
     fill_in 'advert_price', with: '1000'
+    select(@category.name, from: 'advert_category_id')
     page.find('input.btn').click
     expect(page).to have_content 'test_advert_name'
   end
 
-  it 'Should Add New Advert' do
-    visit('users/sign_up')
-    fill_in 'user_name', with: 'test_name'
-    fill_in 'user_email', with: 'email@gmail.com'
-    fill_in 'user_password', with: 'password'
-    fill_in 'user_password_confirmation', with: 'password'
+  it 'Should Edit Advert' do
+    @advert = Fabricate(:advert)
+    @user = @advert.user
+    visit new_user_session_path
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
     page.find('input.button').click
-
-    visit('adverts/new')
+    visit edit_advert_path(@advert)
     fill_in 'advert_name', with: 'test_advert_name'
-    fill_in 'advert_description', with: 'test_description'
-    fill_in 'advert_price', with: '1000'
     page.find('input.btn').click
+    visit account_adverts_path
     expect(page).to have_content 'test_advert_name'
-
   end
 
 end
