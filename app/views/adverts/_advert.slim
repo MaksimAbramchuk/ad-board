@@ -13,8 +13,8 @@
               ul.dropdown-menu
                 li
                   = link_to "Edit advert", edit_advert_path(advert) if can? :edit, advert
-                  = link_to "Change state", advert_change_path(advert) if can? :change_state, advert
-                  = link_to "See logs", advert_logs_path(advert) if can? :see_logs, advert
+                  = link_to "Change state", change_advert_path(advert) if can? :change_state, advert
+                  = link_to "See logs", logs_advert_path(advert) if can? :logs, advert
     tr
       td
         span

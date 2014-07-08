@@ -1,7 +1,7 @@
 class AdvertsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: :index
-  load_and_authorize_resource only: [:edit, :update]
+  load_and_authorize_resource only: [:edit, :update, :change, :change_state, :logs]
 
   def index
     @search = Advert.search(params[:q])
@@ -42,12 +42,10 @@ class AdvertsController < ApplicationController
   end
 
   def change
-    @advert = Advert.find(params[:advert_id])
     @comment = Comment.new
   end
 
   def change_state
-    @advert = Advert.find(params[:advert_id])
     @advert.send(state_params[:state])
     if @advert.declined?
       @operation = Operation.find_according(@advert)
@@ -61,7 +59,6 @@ class AdvertsController < ApplicationController
   end
 
   def logs
-    @advert = Advert.find(params[:advert_id])
     @operations = Operation.list_all(@advert)
   end
 
