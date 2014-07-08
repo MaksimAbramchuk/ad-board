@@ -1,0 +1,8 @@
+= f.attribute_fields do |a|
+	= a.attribute_select associations: [:category]
+br 
+= f.predicate_select 
+br
+= f.value_fields do |v|
+  = v.text_field :value
+br

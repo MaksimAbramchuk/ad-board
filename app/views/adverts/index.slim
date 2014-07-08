@@ -2,8 +2,4 @@
 = paginate @adverts
 
 - content_for :sidebar do
-  .well.sidebar-nav.pull-right style='position: fixed;'
-    h4 Sort by:
-    = sort_link @search, :price, "Price"
-    br
-    = sort_link @search, :created_at, "Date" 
+  = render 'sidebar'

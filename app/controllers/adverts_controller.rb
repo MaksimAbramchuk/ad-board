@@ -6,6 +6,7 @@ class AdvertsController < ApplicationController
   def index
     @search = Advert.search(params[:q])
     @adverts = @search.result.published.page params[:page]
+    @search.build_condition if @search.conditions.empty?
   end
 
   def new

@@ -1,0 +1,12 @@
+.well.sidebar-nav.pull-right style='position: fixed;'
+  h4 Sort by:
+  = sort_link @search, :price, "Price"
+  br
+  = sort_link @search, :created_at, "Date"
+  h4 Filter by:
+  = search_form_for @search do |f|
+    = f.condition_fields do |c|
+      = render 'condition_fields', f: c
+    = link_to_add_fields "Add Conditions", f, :condition
+    br
+    = f.submit 'Search', class: 'btn btn-success'
