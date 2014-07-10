@@ -50,7 +50,7 @@ class AdvertsController < ApplicationController
     status_service = AdvertStatusService.new(@advert, current_user)
     status_service.send(state_params[:state])
     if @advert.declined?
-      @operation = Operation.find_according(@advert)
+      @operation = Operation.find_according(@advert, current_user)
       @comment = Comment.create(advert: @advert, comment: advert_params[:comment], operation: @operation)
     end
     if @advert.save
