@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_current_user
   before_filter :initialize_search
+  include StateHelper
 
   def initialize_search
     @q = Advert.search(params[:q])
