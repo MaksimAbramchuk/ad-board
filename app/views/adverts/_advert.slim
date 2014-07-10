@@ -4,7 +4,7 @@
       td class='advert_name'
         h4 = advert.name
       - if user_signed_in?
-        - if current_user.send(:admin?) || advert.user == current_user
+        - if current_user.role.admin? || advert.user == current_user
           td
             .btn-group
               a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
