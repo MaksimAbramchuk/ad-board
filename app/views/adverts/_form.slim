@@ -11,14 +11,12 @@
   = f.number_field :price,step: 0.1
   = f.hidden_field :state, value: :new
   - if @advert.images
-    = f.label 'Attached images:'
-    - @advert.images.each do |img|
-      = image_tag img.image.url
-      br
-  = f.label 'Upload images'
-  = f.fields_for :images do |builder|
-    = builder.file_field :image
-    = builder.link_to_remove "Remove Image"
-  p = f.link_to_add "Add Image",:images
+    = f.fields_for :images do |builder|
+      = image_tag builder.object.image.url(:small)
+      = builder.link_to_remove ' Remove Image'
+  br
+  - f.fields_for :images do |builder|
+    - builder.file_field :image
+  p = f.link_to_add 'Add image',:images
   br
   =f.submit "Submit",class: "btn btn-success"
