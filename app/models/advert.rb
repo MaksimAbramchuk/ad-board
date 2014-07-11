@@ -2,10 +2,10 @@ class Advert < ActiveRecord::Base
 
   paginates_per 10
 
-  scope :more_than_1_day, -> { where(state: 'published').where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }) }
-  scope :published, -> { where(state: :published).order(updated_at: :desc) }
-  scope :awaiting_publication, -> { where(state: 'awaiting_publication').order(updated_at: :desc) }
-  scope :declined, -> { where(state: 'declined').order(updated_at: :desc) }
+  scope :more_than_1_day, -> { where(state: 'published').where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }).includes(:category, :images) }
+  scope :published, -> { where(state: :published).includes(:category, :images).order(updated_at: :desc) }
+  scope :awaiting_publication, -> { where(state: 'awaiting_publication').includes(:category, :images).order(updated_at: :desc) }
+  scope :declined, -> { where(state: 'declined').includes(:category, :images).order(updated_at: :desc) }
 
   validates :name, :description, :price, presence: true
 

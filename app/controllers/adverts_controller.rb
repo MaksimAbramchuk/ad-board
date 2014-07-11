@@ -1,7 +1,7 @@
 class AdvertsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: :index
-  load_and_authorize_resource only: [:edit, :update, :change, :change_state, :logs]
+  load_and_authorize_resource
 
   def index
     @search = Advert.search(params[:q])
