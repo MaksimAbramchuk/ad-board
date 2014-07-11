@@ -5,15 +5,14 @@ class Ability
   def initialize(user)
 
     user ||= User.new
-    alias_action :create, :update, :destroy, to: :modify
     if user.role.admin?
-      can [:index, :new, :create, :edit, :change_state, :update, :change, :logs, ], Advert
-      can :modify, Category
-      can [:change, :see_publications, :show, :edit, :update, :change_role], User
+      can :manage, Advert
+      can :manage, Category
+      can [:manage, :change, :see_publications, :change_role], User
     elsif user.role.user?
       can [:index, :new, :create], Advert
       can [:edit, :change_state, :logs], Advert, user_id: user.id
-      can :show, User
+      can [:show, :account, :adverts], User
       can [:change, :edit, :update], User, id: user.id
     end
   end

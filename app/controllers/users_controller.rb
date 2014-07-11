@@ -1,7 +1,7 @@
-class UsersController < ApplicationController
-  
-  load_and_authorize_resource except: [:index]
-  
+class UsersController < Devise::RegistrationsController
+
+  load_and_authorize_resource
+
   def index
     @users = User.all
   end
@@ -15,6 +15,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def new
+    super
+  end
+
+  def create
+    super
+  end
+
   def edit
     @user.build_avatar unless @user.avatar
   end
@@ -24,6 +32,18 @@ class UsersController < ApplicationController
       redirect_to user_path(@user)
     else
       redirect_to edit_user_path(@user)
+    end
+  end
+
+  def adverts
+    @adverts = current_user.adverts.order(updated_at: :desc).page params[:page]
+  end
+
+  def account
+    if current_user.role.admin?
+      render :admin_account
+    else
+      render :user_account
     end
   end
 

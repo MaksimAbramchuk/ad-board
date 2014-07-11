@@ -27,7 +27,7 @@ RSpec.describe 'Advert Functional', type: :features do
     visit edit_advert_path(@advert)
     fill_in 'advert_name', with: 'test_advert_name'
     page.find('input.btn').click
-    visit account_adverts_path
+    visit users_adverts_path
     expect(page).to have_content 'test_advert_name'
   end
 

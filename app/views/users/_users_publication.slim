@@ -1,9 +1,9 @@
 -if !@awaiting.empty?
   h3.text-center Awaiting publication
-  = render @awaiting
+  = render partial: '/adverts/advert', collection: @awaiting
 -if !@declined.empty?
   h3.text-center Declined
-  = render @declined
+  = render partial: '/adverts/advert', collection: @declined
 -if !@published.empty?
   h3.text-center Published
-  = render @published
+  = render partial: '/adverts/advert', collection: @published

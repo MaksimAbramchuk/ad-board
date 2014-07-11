@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users' }
 
   root 'adverts#index'
-
-  get 'account', to: 'accounts#index'
-  get 'account/adverts/', to: 'accounts#adverts'
-
-  get '/search/result', to: 'search#result'
 
   resources :adverts do
     member do
@@ -18,7 +13,12 @@ Rails.application.routes.draw do
     get 'awaiting_publication', on: :collection
   end
 
-  resources :users, only: [:index, :show, :edit, :update]
+  devise_scope :user do
+    get 'users/adverts/', to: 'users#adverts'
+    get 'account', to: 'users#account'
+    resources :users
+  end
+
   resources :categories
 
 end

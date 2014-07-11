@@ -17,7 +17,7 @@ class AdvertsController < ApplicationController
     @advert = Advert.create(advert_params)
     @advert.user = current_user
     if @advert.save
-      redirect_to account_adverts_path
+      redirect_to users_adverts_path
     else
       redirect_to new_advert_path
     end
@@ -54,7 +54,7 @@ class AdvertsController < ApplicationController
       @comment = Comment.create(advert: @advert, comment: advert_params[:comment], operation: @operation)
     end
     if @advert.save
-      redirect_to account_adverts_path
+      redirect_to users_adverts_path
     else
       redirect_to advert_change_path(@advert)
     end

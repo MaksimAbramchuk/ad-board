@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module AdvBoard
   class Application < Rails::Application
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/lib)
 
     config.generators do |g|
       g.stylesheets = false
