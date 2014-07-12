@@ -15,14 +15,6 @@ class UsersController < Devise::RegistrationsController
     end
   end
 
-  def new
-    super
-  end
-
-  def create
-    super
-  end
-
   def edit
     @user.build_avatar unless @user.avatar
   end
