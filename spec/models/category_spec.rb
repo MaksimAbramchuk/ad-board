@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Category do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe 'associations' do
+    it { expect(subject).to have_many(:adverts) }
+  end
+
+  describe 'validations' do
+    it { expect(subject).to validate_presence_of(:name) }
+  end
+
 end

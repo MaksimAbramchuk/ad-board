@@ -7,7 +7,7 @@ class Advert < ActiveRecord::Base
   scope :awaiting_publication, -> { where(state: 'awaiting_publication').includes(:category, :images).order(updated_at: :desc) }
   scope :declined, -> { where(state: 'declined').includes(:category, :images).order(updated_at: :desc) }
 
-  validates :name, :description, :price, presence: true
+  validates :name, :description, :price, :user_id, :category_id, presence: true
 
   belongs_to :user
   belongs_to :category

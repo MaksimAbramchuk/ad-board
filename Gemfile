@@ -34,6 +34,7 @@ group :test do
   gem 'capybara-webkit'
   gem 'fabrication'
   gem 'database_cleaner'
+  gem 'shoulda-matchers', require: false
 end
 
 gem 'rails', '4.1.0'
