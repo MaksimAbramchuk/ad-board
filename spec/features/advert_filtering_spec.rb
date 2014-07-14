@@ -1,18 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe 'Advert filtering', type: :features do
+feature 'Advert filtering' do
 
-  it 'Should filter adverts by one param (kind)' do
-    @user = Fabricate(:user)
+  let(:user) { Fabricate(:user) }
+
+  before do
+    sign_in_with(user.email, user.password)
+  end
+
+  scenario 'Should filter adverts by one param (kind)' do
     kinds = Advert.kind.options.map { |k| k.last }
-    kinds.count.times { |i| Fabricate(:advert) { kind kinds[i] } }
-    visit new_user_session_path
-    fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: @user.password
-    page.find('input.button').click
+    kinds.count.times { |i| Fabricate(:advert, kind: kinds[i]) }
+
     select 'Kind', from: 'q_c_0_a_0_name'
     fill_in 'q_c_0_v_0_value', with: 'Rent'
     page.find('input.btn-success').click
+
     expect(page).not_to have_content('Service')
   end
 
