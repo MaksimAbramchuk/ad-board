@@ -28,7 +28,7 @@ class UsersController < Devise::RegistrationsController
   end
 
   def adverts
-    @adverts = current_user.adverts.order(updated_at: :desc).page params[:page]
+    @adverts = current_user.adverts.including_all.order(updated_at: :desc).page params[:page]
   end
 
   def account
