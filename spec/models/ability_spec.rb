@@ -19,9 +19,10 @@ describe Ability do
     it { expect(ability).to be_able_to(:edit, User.new(id: user.id)) }
     it { expect(ability).to be_able_to(:change, User.new(id: user.id)) }
 
-    it { should_not be_able_to(:manage, Category.new) }
-    it { should_not be_able_to(:manage, User.new) }
-    it { should_not be_able_to(:change_role, User.new) }
+    it { expect(ability).not_to be_able_to(:awaiting_publication, Advert.new) }
+    it { expect(ability).not_to be_able_to(:manage, Category.new) }
+    it { expect(ability).not_to be_able_to(:manage, User.new) }
+    it { expect(ability).not_to be_able_to(:change_role, User.new) }
   end
 
   context 'When user is an admin' do

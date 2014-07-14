@@ -3,16 +3,12 @@ class UsersController < Devise::RegistrationsController
   load_and_authorize_resource
 
   def index
-    @users = User.all
   end
 
   def show
-    if current_user.role.admin?
-      @user = User.includes(:adverts).find(params[:id])
-      @awaiting = @user.adverts.awaiting_publication
-      @declined = @user.adverts.declined
-      @published = @user.adverts.published
-    end
+    @awaiting = @user.adverts.awaiting_publication
+    @declined = @user.adverts.declined
+    @published = @user.adverts.published
   end
 
   def edit

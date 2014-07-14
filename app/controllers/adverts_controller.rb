@@ -36,9 +36,6 @@ class AdvertsController < ApplicationController
   end
 
   def awaiting_publication
-    unless current_user.role.admin?
-      redirect_to root_path
-    end
     @adverts = Advert.awaiting_publication
   end
 

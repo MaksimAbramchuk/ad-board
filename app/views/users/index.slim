@@ -1,4 +1,4 @@
 h1 All the users
-- @users.each do |user|
+- @users.find_each do |user|
   h5
-    = link_to "#{user.name},#{user.email}", user_path(user)
+    = link_to "#{user.name}, #{user.email}", user_path(user)
