@@ -48,7 +48,7 @@ class Advert < ActiveRecord::Base
 
   def self.archive_old_adverts
     published_adverts = Advert.more_than_1_day
-    published_adverts.each { |a| a.archive; a.save }
+    published_adverts.find_each { |a| a.archive; a.save }
   end
 
 end

@@ -1,6 +1,6 @@
 h2.text-center
   | Logs
-- @operations.each do |oper|
+- @operations.find_each do |oper|
     .well
       = "#{oper.user.name} has transitioned this advert from state '#{oper.from}' to '#{oper.to}' at #{oper.created_at.strftime(" %m/%d/%Y %T")}"
       = " with comment '#{oper.comment.comment}'" if oper.comment
