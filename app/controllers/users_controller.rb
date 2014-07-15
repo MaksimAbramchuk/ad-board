@@ -38,7 +38,11 @@ class UsersController < Devise::RegistrationsController
   protected
 
   def user_params
-    params.require(:user).permit(:name, :email, :role, avatar_attributes: [:id, :image, :_destroy])
+    if current_user.role.admin?
+      params.require(:user).permit(:name, :email, :role, avatar_attributes: [:id, :image, :_destroy])
+    elsif current_user.role.user?
+      params.require(:user).permit(:name, :email, avatar_attributes: [:id, :image, :_destroy])
+    end
   end
 
 end
