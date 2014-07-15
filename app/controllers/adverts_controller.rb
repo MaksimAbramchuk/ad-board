@@ -10,11 +10,9 @@ class AdvertsController < ApplicationController
   end
 
   def new
-    @advert = Advert.new
   end
 
   def create
-    @advert = Advert.create(advert_params)
     @advert.user = current_user
     if @advert.save
       redirect_to users_adverts_path
