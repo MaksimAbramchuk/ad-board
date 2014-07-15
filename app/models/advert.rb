@@ -3,10 +3,13 @@ class Advert < ActiveRecord::Base
   paginates_per 10
 
   scope :including_all, -> { includes(:category, :images, :user) }
-  scope :more_than_1_day, -> { where(state: 'published').where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }).includes(:category, :images) }
+  scope :more_than_1_day, -> { where(state: :published).where('updated_at <= :day_ago', { day_ago: Time.now - 1.day }).includes(:category, :images) }
   scope :published, -> { where(state: :published).including_all.order(updated_at: :desc) }
-  scope :awaiting_publication, -> { where(state: 'awaiting_publication').including_all.order(updated_at: :desc) }
-  scope :declined, -> { where(state: 'declined').including_all.order(updated_at: :desc) }
+  scope :awaiting_publication, -> { where(state: :awaiting_publication).including_all.order(updated_at: :desc) }
+  scope :declined, -> { where(state: :declined).including_all.order(updated_at: :desc) }
+  scope :category_filter, ->(category){ where(state: :published).joins(:category).where("categories.name = ?",category) }
+  scope :categories_count,  ->{ where(state: :published).joins(:category).group("categories.name").count }
+
   validates :name, :description, :price, :user_id, :category_id, presence: true
 
   belongs_to :user

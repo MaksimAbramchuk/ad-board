@@ -1,4 +1,4 @@
-.well.sidebar-nav.pull-right style='position: fixed;'
+.well.sidebar-nav.pull-left
   h4 Sort by:
   = sort_link @search, :price, "Price"
   br
@@ -10,3 +10,7 @@
     = link_to_add_fields "Add Conditions", f, :condition
     br
     = f.submit 'Search', class: 'btn btn-success'
+  h4 Categories
+  -Advert.categories_count.each do |name, count|
+    =link_to "#{name} (#{count})", "filter?query=#{name}"
+    br

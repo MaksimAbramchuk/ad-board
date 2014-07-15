@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users' }
 
   root 'adverts#index'
+  get 'filter' => 'adverts#filter'
 
   resources :adverts do
     member do

@@ -58,6 +58,13 @@ class AdvertsController < ApplicationController
   def logs
     @operations = Operation.list_all(@advert)
   end
+  
+  def filter
+    @search = Advert.search(params[:q])
+    @search.build_condition if @search.conditions.empty?
+    @adverts = Advert.category_filter(params[:query]).page params[:page]
+    render :index
+  end
 
   protected
 
