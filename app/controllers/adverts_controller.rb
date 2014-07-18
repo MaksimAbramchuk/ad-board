@@ -21,7 +21,7 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if (@advert.user != current_user) && !current_user.role.admin?
+    redirect_to root_path if (@advert.user != current_user) && !current_user.admin?
   end
 
   def update

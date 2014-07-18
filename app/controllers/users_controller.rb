@@ -28,7 +28,7 @@ class UsersController < Devise::RegistrationsController
   end
 
   def account
-    if current_user.role.admin?
+    if current_user.admin?
       render :admin_account
     else
       render :user_account
@@ -38,9 +38,9 @@ class UsersController < Devise::RegistrationsController
   protected
 
   def user_params
-    if current_user.role.admin?
+    if current_user.admin?
       params.require(:user).permit(:name, :email, :role, avatar_attributes: [:id, :image, :_destroy])
-    elsif current_user.role.user?
+    elsif current_user.user?
       params.require(:user).permit(:name, :email, avatar_attributes: [:id, :image, :_destroy])
     end
   end

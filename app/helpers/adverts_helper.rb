@@ -1,7 +1,7 @@
 module AdvertsHelper
   def available_states_for(advert)
     available = []
-    if current_user.role.admin?
+    if current_user.admin?
       if advert.awaiting_publication?
         available = [:decline, :publish]
       elsif advert.published? || advert.declined?

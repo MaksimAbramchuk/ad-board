@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :avatar, reject_if: ->(t) { t['image'].nil? }, allow_destroy: true
 
   extend Enumerize
-  enumerize :role, in: [:user, :admin]
+  enumerize :role, in: [:user, :admin], default: :user, predicates: true
 
   class << self
 
