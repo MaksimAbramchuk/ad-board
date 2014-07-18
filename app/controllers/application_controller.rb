@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_search
   before_action :set_locale
 
+  rescue_from CanCan::AccessDenied, with: :user_not_authorized
+
   def initialize_search
     @search = Advert.search(params[:q])
   end
@@ -18,6 +20,10 @@ class ApplicationController < ActionController::Base
   
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def user_not_authorized
+    redirect_to root_path
   end
 
 end

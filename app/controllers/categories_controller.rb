@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
 
-  before_action :redirect_if_not_admin
   load_and_authorize_resource
 
   def index
@@ -37,12 +36,6 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
-  end
-
-  def redirect_if_not_admin
-    unless can? :manage, Category
-      redirect_to root_path
-    end
   end
 
 end
