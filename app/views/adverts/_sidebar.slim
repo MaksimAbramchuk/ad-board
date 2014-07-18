@@ -1,15 +1,17 @@
 .well.sidebar-nav.pull-left
-  h4 Sort by:
-  = sort_link @search, :price, "Price"
+  h4
+    = t('sidebar.sort_by')
+  = sort_link @search, :price, t('activerecord.attributes.advert.price')
   br
-  = sort_link @search, :created_at, "Date"
-  h4 Filter by:
+  = sort_link @search, :created_at, t('activerecord.attributes.advert.date')
+  h4
+    = t('sidebar.filter_by')
   = search_form_for @search do |f|
     = f.condition_fields do |c|
       = render 'condition_fields', f: c
     = link_to_add_fields "Add Conditions", f, :condition
     br
-    = f.submit 'Search', class: 'btn btn-success'
+    = f.submit t('sidebar.search'), class: 'btn btn-success'
   h4 Categories
   -Advert.categories_count.each do |name, count|
     =link_to "#{name} (#{count})", "filter?query=#{name}"

@@ -17,22 +17,23 @@ html lang="en"
   	.navbar.navbar-inverse
   	  .navbar-inner
         .container
-          a.brand href="/" Board
+          a.brand href="/"
+            = t('header.board')
           - if user_signed_in?
             .container.nav-collapse
               ul.nav  
                   li = link_to "Hello, #{current_user.name}!"
               ul class="nav pull-right"
-                li = link_to "Account", account_path
-                li = link_to "Add new advert",new_advert_path, :method => "get"
-                = search_form_for @q, html: {class:"navbar-search", style:"margin-right: 20px"} do |f|
+                li = link_to t('header.account'), account_path
+                li = link_to t('header.add_new_advert'), new_advert_path, :method => 'get'
+                = search_form_for @search, html: {class:"navbar-search", style:"margin-right: 20px"} do |f|
                   = f.text_field :description_cont, :class => "search-query", :placeholder => "Search"
                 li = link_to "Log out", destroy_user_session_path, method: "delete"
           - if !user_signed_in?
             .container.nav-collapse
               ul.nav.pull-right
-                li = link_to "Sign in", new_user_session_path
-                li = link_to "Sign up", new_user_registration_path 
+                li = link_to 'Sign in', new_user_session_path
+                li = link_to 'Sign up', new_user_registration_path 
   = yield :sidebar  
         
   .main_block

@@ -1,10 +1,9 @@
 class AdvertsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only:[:index, :filter]
   load_and_authorize_resource
 
   def index
-    @search = Advert.search(params[:q])
     @adverts = @search.result.published.page params[:page]
     @search.build_condition if @search.conditions.empty?
   end
@@ -60,7 +59,6 @@ class AdvertsController < ApplicationController
   end
   
   def filter
-    @search = Advert.search(params[:q])
     @search.build_condition if @search.conditions.empty?
     @adverts = Advert.category_filter(params[:query]).page params[:page]
     render :index
