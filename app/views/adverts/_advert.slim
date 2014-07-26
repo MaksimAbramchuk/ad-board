@@ -15,6 +15,7 @@
                   = link_to "Edit advert", edit_advert_path(advert) if can? :edit, advert
                   = link_to "Change state", change_advert_path(advert) if can? :change_state, advert
                   = link_to "See logs", logs_advert_path(advert) if can? :logs, advert
+                  = link_to "Delete advert", advert_path(advert), method: :delete
     tr
       td
         span

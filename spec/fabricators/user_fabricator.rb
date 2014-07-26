@@ -3,5 +3,5 @@ Fabricator(:user) do
   email { Faker::Internet.email }
   password 'password'
   password_confirmation 'password'
-  role 'admin'
+  role 'user'
 end

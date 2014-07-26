@@ -16,7 +16,7 @@ feature 'State changing' do
 
   scenario 'Advert decline with comment', js: true do
     advert = Fabricate(:advert, state: :awaiting_publication)
-    user = advert.user
+    user = Fabricate(:user, role: 'admin')
 
     sign_in_with(user.email, user.password)
     

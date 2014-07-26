@@ -16,7 +16,7 @@ class AdvertsController < ApplicationController
     if @advert.save
       redirect_to users_adverts_path
     else
-      redirect_to new_advert_path
+      render :new
     end
   end
 
@@ -62,6 +62,11 @@ class AdvertsController < ApplicationController
     @search.build_condition if @search.conditions.empty?
     @adverts = Advert.category_filter(params[:query]).page params[:page]
     render :index
+  end
+
+  def destroy
+    @advert.destroy
+    redirect_to root_path
   end
 
   protected
