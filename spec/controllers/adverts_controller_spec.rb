@@ -6,34 +6,42 @@ describe AdvertsController do
 
     describe '#edit' do
       it_loads_requested_advert do
-        get :edit, id: advert.id
+        get_edit_request
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get :edit, id: advert.id
+          get_edit_request
         end
       end
 
       it_denies_access_for(:guest) do
-        get :edit, id: advert.id
+        get_edit_request
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get :edit, id: advert.id
+          get_edit_request
         end
+      end
+
+      def get_edit_request
+        get :edit, id: advert.id
       end
     end
 
     describe '#new' do
-      for_user :user do
-        it_permits_access_for(:user) do
-          get :new
+      for_users :user, :admin do
+        it_permits_access_for(:user, :admin) do
+          get_new_request
         end
       end
 
       it_denies_access_for(:guest) do
+        get_new_request
+      end
+
+      def get_new_request
         get :new
       end
     end
@@ -41,56 +49,63 @@ describe AdvertsController do
     describe '#change' do
       for_user :owner do
         it_permits_access_for(:owner) do
-          get :change, id: advert.id
+          get_change_request
         end
       end
 
       it_denies_access_for(:guest) do
-        get :change, id: advert.id
+        get_change_request
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get :change, id: advert.id
+          get_change_request
         end
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get :change, id: advert.id
+          get_change_request
         end
       end
 
       it_loads_requested_advert do
+        get_change_request
+      end
+
+      def get_change_request
         get :change, id: advert.id
       end
     end
 
     describe '#logs' do
-      it_permits_access_for(:owner) do
-        user = advert.user
-        sign_in(user)
-
-        get :logs, id: advert.id
+      for_user(:owner) do
+        it_permits_access_for(:owner) do
+          get_logs_request
+        end
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get :logs, id: advert.id
+          get_logs_request
         end
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get :logs, id: advert.id
+          get_logs_request
         end
       end
 
       it_denies_access_for(:guest) do
-        get :logs, id: advert.id
+        get_logs_request
       end
 
       it_loads_requested_advert do
+        get_logs_request
+      end
+
+      def get_logs_request
         get :logs, id: advert.id
       end
     end
@@ -98,14 +113,22 @@ describe AdvertsController do
     describe '#awaiting_publication' do
       for_user :admin do
         it_permits_access_for(:admin) do
-          get :awaiting_publication
+          get_awaiting_publication_request
         end
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get :awaiting_publication
+          get_awaiting_publication_request
         end
+      end
+
+      it_denies_access_for(:quest) do
+        get_awaiting_publication_request
+      end
+
+      def get_awaiting_publication_request
+        get :awaiting_publication
       end
     end
   end
@@ -114,18 +137,7 @@ describe AdvertsController do
     let(:advert) { Fabricate(:advert) }
 
     describe '#update' do
-      context 'by owner' do
-        before do
-          sign_in(advert.user)
-        end
-
-        it "updates advert's attributes" do
-          patch_update_request
-          expect(advert.reload.name).to eq('edited name')
-        end
-      end
-
-      for_user :admin do
+      for_users :owner, :admin do
         it "updates advert's attributes" do
           patch_update_request
           expect(advert.reload.name).to eq('edited name')
@@ -153,17 +165,15 @@ describe AdvertsController do
     end
 
     describe '#change_state' do
-      context 'by owner' do
-        before do
-          sign_in(advert.user)
-        end
-
+      for_user :owner do
         it 'archives published advert' do
-          patch_change_state('archive')
+          patch_change_state(:archive)
 
           expect(advert.reload.state).to eq('archived')
         end
+      end
 
+      for_users :owner, :admin do
         it "can't decline advert" do
           patch_change_state(:decline)
 
@@ -178,11 +188,6 @@ describe AdvertsController do
           patch :change_state, id: advert.id, advert: { state: :decline }
 
           expect(advert.reload.state).to eq('declined')
-        end
-
-        it "can't decline advert" do
-          patch_change_state(:decline)
-          expect(advert.reload.state).not_to eq('declined')
         end
       end
 
@@ -242,11 +247,7 @@ describe AdvertsController do
   describe 'DELETE' do
     let(:advert) { Fabricate(:advert) }
     describe '#destroy' do
-      before do
-        sign_in(advert.user)
-      end
-
-      context 'by owner' do
+      for_user :owner do
         it 'deletes the advert' do
           delete_destroy_request
 
