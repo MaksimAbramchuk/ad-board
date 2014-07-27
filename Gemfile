@@ -35,6 +35,7 @@ group :test do
   gem 'fabrication'
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
+  gem 'simplecov', '~> 0.9.0', :require => false
 end
 
 gem 'rails', '4.1.0'

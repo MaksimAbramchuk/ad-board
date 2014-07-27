@@ -14,6 +14,11 @@ Dir[Rails.root.join('spec/fabricators/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+unless ENV['COVERAGE'].nil?
+  require 'simplecov'
+  SimpleCov.start :rails
+end
+
 RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   # ## Mock Framework

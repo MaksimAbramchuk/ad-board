@@ -28,7 +28,7 @@ class AdvertsController < ApplicationController
     if @advert.update(advert_params)
       redirect_to root_path
     else
-      redirect_to edit_advert_path(advert)
+      render :edit
     end
   end
 

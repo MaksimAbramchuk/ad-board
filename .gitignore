@@ -22,3 +22,5 @@ config/appconfig.defaults.yml
 public/system/
 *.jpg
 /*.keep
+# Ignore code coverage by tests.
+/coverage

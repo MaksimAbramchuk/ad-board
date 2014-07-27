@@ -5,168 +5,114 @@ describe AdvertsController do
     let(:advert) { Fabricate(:advert) }
 
     describe '#edit' do
-      it 'edit the requested advert' do
-        sign_in(advert.user)
-
+      it_loads_requested_advert do
         get :edit, id: advert.id
-
-        expect(assigns(:advert)).to eq(advert) 
       end
 
-      it 'permit access for the admin' do
-        admin = Fabricate(:user, role: :admin)
-        sign_in(admin)
-
-        get :edit, id: advert.id
-
-        expect(response).to be_successful
+      for_user :admin do
+        it_permits_access_for(:admin) do
+          get :edit, id: advert.id
+        end
       end
 
-      it 'denied access for the guest' do
+      it_denies_access_for(:guest) do
         get :edit, id: advert.id
-
-        expect(response).not_to be_successful
       end
 
-      it 'denied access for the user(not owner)' do
-        user = Fabricate(:user)
-        sign_in(user)
-
-        get :edit, id: advert.id
-
-        expect(response).not_to be_successful
+      for_user :user do
+        it_denies_access_for(:user) do
+          get :edit, id: advert.id
+        end
       end
     end
 
     describe '#new' do
-      it 'permit access for the user' do
-        sign_in(Fabricate(:user))
-
-        get :new
-
-        expect(response).to be_successful
+      for_user :user do
+        it_permits_access_for(:user) do
+          get :new
+        end
       end
 
-      it 'denied access for unauthorized user' do
+      it_denies_access_for(:guest) do
         get :new
-
-        expect(response).not_to be_successful
       end
     end
 
     describe '#change' do
-      it 'permit access for the advert owner' do
-        user = advert.user
-        sign_in(user)
-
-        get :change, id: advert.id
-
-        expect(response).to be_successful
-        expect(assigns(:advert)).to eq(advert)
+      for_user :owner do
+        it_permits_access_for(:owner) do
+          get :change, id: advert.id
+        end
       end
 
-      it 'denied access for the guest' do
+      it_denies_access_for(:guest) do
         get :change, id: advert.id
-
-        expect(response).not_to be_successful
       end
 
-      it 'denied access for the user(not owner)' do
-        user = Fabricate(:user)
-        sign_in(user)
-
-        get :change, id: advert.id
-
-        expect(response).not_to be_successful
+      for_user :user do
+        it_denies_access_for(:user) do
+          get :change, id: advert.id
+        end
       end
 
-      it 'permit access for the admin' do
-        advert = Fabricate(:advert)
-        admin = Fabricate(:user, role: :admin)
-        sign_in(admin)
-
-        get :change, id: advert.id
-
-        expect(response).to be_successful
+      for_user :admin do
+        it_permits_access_for(:admin) do
+          get :change, id: advert.id
+        end
       end
 
-      it 'loads the requested advert' do
-        user = advert.user
-        sign_in(user)
-
+      it_loads_requested_advert do
         get :change, id: advert.id
-
-        expect(assigns(:advert)).to eq(advert)
       end
     end
 
     describe '#logs' do
-      it 'permit access for the owner' do
+      it_permits_access_for(:owner) do
         user = advert.user
         sign_in(user)
 
         get :logs, id: advert.id
-
-        expect(response).to be_successful
       end
 
-      it 'denied access for the user(not owner)' do
-        user = Fabricate(:user)
-        sign_in(user)
-
-        get :logs, id: advert.id
-
-        expect(response).not_to be_successful
+      for_user :user do
+        it_denies_access_for(:user) do
+          get :logs, id: advert.id
+        end
       end
 
-      it 'permit access for the admin' do
-        admin = Fabricate(:user, role: :admin)
-        sign_in(admin)
-
-        get :logs, id: advert.id
-
-        expect(response).to be_successful
+      for_user :admin do
+        it_permits_access_for(:admin) do
+          get :logs, id: advert.id
+        end
       end
 
-      it 'denied access for the guest' do
+      it_denies_access_for(:guest) do
         get :logs, id: advert.id
-
-        expect(response).not_to be_successful
       end
 
-      it 'loads requested advert' do
-        user = advert.user
-        sign_in(user)
-
+      it_loads_requested_advert do
         get :logs, id: advert.id
-
-        expect(assigns(:advert)).to eq(advert)
       end
     end
 
     describe '#awaiting_publication' do
-      it 'permit access for the admin' do
-        admin = Fabricate(:user, role: :admin)
-        sign_in(admin)
-
-        get :awaiting_publication
-
-        expect(response).to be_successful
+      for_user :admin do
+        it_permits_access_for(:admin) do
+          get :awaiting_publication
+        end
       end
 
-      it 'denied access for the common user' do
-        user = Fabricate(:user)
-        sign_in(user)
-
-        get :awaiting_publication
-
-        expect(response).not_to be_successful
+      for_user :user do
+        it_denies_access_for(:user) do
+          get :awaiting_publication
+        end
       end
     end
   end
 
   describe 'PATCH' do
     let(:advert) { Fabricate(:advert) }
+
     describe '#update' do
       context 'by owner' do
         before do
@@ -179,28 +125,26 @@ describe AdvertsController do
         end
       end
 
-      context 'by admin' do
-        before do
-          admin = Fabricate(:user, role: :admin)
-          sign_in(admin)
-        end
-
+      for_user :admin do
         it "updates advert's attributes" do
           patch_update_request
           expect(advert.reload.name).to eq('edited name')
         end
       end
 
-      it 'denied access for quest' do
-        sign_in(Fabricate(:user))
+      it_denies_access_for(:guest) do
         patch_update_request
-        expect(response).not_to be_successful
       end
 
-      it 'loads the requested advert' do
-        sign_in(Fabricate(:user))
+      it_loads_requested_advert do
         patch_update_request
-        expect(assigns(:advert)).to eq(advert)
+      end
+
+      it "render's new if can't edit the advert" do
+        advert = Fabricate(:advert)
+        sign_in(advert.user)
+        patch :update, id: advert.id, advert: { name: nil }
+        expect(response).to render_template(:edit)
       end
 
       def patch_update_request
@@ -213,26 +157,26 @@ describe AdvertsController do
         before do
           sign_in(advert.user)
         end
+
         it 'archives published advert' do
           patch_change_state('archive')
+
           expect(advert.reload.state).to eq('archived')
         end
 
         it "can't decline advert" do
           patch_change_state(:decline)
+
           expect(advert.reload.state).not_to eq('declined')
         end
       end
 
-      context 'by admin' do
-        before do
-          admin = Fabricate(:user, role: :admin)
-          sign_in(admin)
-        end
-
+      for_user :admin do
         it 'declines advert' do
           advert = Fabricate(:advert, state: 'awaiting_publication')
+
           patch :change_state, id: advert.id, advert: { state: :decline }
+
           expect(advert.reload.state).to eq('declined')
         end
 
@@ -250,13 +194,7 @@ describe AdvertsController do
 
   describe 'POST' do
     describe '#create' do
-      context 'for admin user' do
-        let(:admin) { Fabricate(:user, role: :admin) }
-
-        before do
-          sign_in(admin)
-        end
-
+      for_user :admin do
         context 'with valid params' do
           before do
             send_post_request_with_valid_params
@@ -271,12 +209,12 @@ describe AdvertsController do
           end
 
           it 'creates advert on behalf signed in user' do
-            expect(assigns(:advert).user).to eq(admin)
+            expect(assigns(:advert).user).to eq(user)
           end
         end
 
         context 'with invalid params' do
-          it 'redirects to #new action' do
+          it 'renders :new template' do
             post :create, advert: { name: nil }
 
             expect(response).to render_template(:new)
@@ -284,7 +222,7 @@ describe AdvertsController do
         end
       end
 
-      it 'denied access for quest' do
+      it_denies_access_for(:guest) do
         send_post_request_with_valid_params
 
         expect(response).to redirect_to(new_user_session_path)
@@ -307,6 +245,7 @@ describe AdvertsController do
       before do
         sign_in(advert.user)
       end
+
       context 'by owner' do
         it 'deletes the advert' do
           delete_destroy_request
@@ -315,12 +254,7 @@ describe AdvertsController do
         end
       end
 
-      context 'by admin' do
-        before do
-          admin = Fabricate(:user, role: 'admin')
-          sign_in(admin)
-        end
-
+      for_user :admin do
         it 'deletes the advert' do
           delete_destroy_request
 
@@ -328,11 +262,7 @@ describe AdvertsController do
         end
       end
 
-      context 'by user(not owner)' do
-        before do
-          sign_in(Fabricate(:user))
-        end
-
+      for_user :user do
         it "doesn't deletes the advert" do
           delete_destroy_request
 
@@ -340,16 +270,12 @@ describe AdvertsController do
         end
       end
 
-      it 'load the requested advert' do
+      it_loads_requested_advert do
         delete_destroy_request
-
-        expect(assigns(:advert)).to eq(advert)
       end
 
-      it 'denied access for quest' do
+      it_denies_access_for(:guest) do
         delete_destroy_request
-
-        expect(response).not_to be_successful
       end
 
       def delete_destroy_request
