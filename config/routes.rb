@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/adverts/', to: 'users#adverts'
     get 'account', to: 'users#account'
-    resources :users
+    resources :users, only: [:index, :show, :update, :edit]
   end
 
   resources :categories

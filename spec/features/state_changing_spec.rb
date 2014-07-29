@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'State changing' do
 
   scenario 'Advert archiving' do
-    advert = Fabricate(:advert)
+    advert = Fabricate(:advert, state: :published)
     user = advert.user
     
     sign_in_with(user.email, user.password)

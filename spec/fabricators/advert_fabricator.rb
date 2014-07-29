@@ -5,5 +5,5 @@ Fabricator(:advert) do
   user { Fabricate(:user) }
   kind 'sale'
   price 10000
-  state 'published'
+  state [:published, :awaiting_publication, :declined, :new, :archived].sample
 end

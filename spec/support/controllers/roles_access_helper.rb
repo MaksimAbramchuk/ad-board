@@ -18,14 +18,18 @@ module Controllers
       end
     end
 
-    def it_loads_requested_advert(&request)
-      it 'loads requested advert' do
+    def it_loads_requested(resource, &request)
+      if(resource==:user)
+        let(:user) { Fabricate(:user) }
+      end
+
+      it "loads requested #{resource}" do
         admin = Fabricate(:user, role: admin)
         sign_in(admin)
 
         instance_exec(&request)
 
-        expect(assigns(:advert)).to eq(advert)
+        expect(assigns(resource)).to eq(instance_eval(resource.to_s))
       end
     end
 

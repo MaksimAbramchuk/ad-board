@@ -9,8 +9,8 @@ feature 'Advert sorting' do
 
   context 'Sorting by price' do
     before do
-      Fabricate(:advert, name: 'Low', price: 10)
-      Fabricate(:advert, name: 'High', price: 100)
+      Fabricate(:advert, name: 'Low', price: 10, state: :published)
+      Fabricate(:advert, name: 'High', price: 100, state: :published)
     end
 
     scenario 'In ascending order' do
@@ -28,8 +28,8 @@ feature 'Advert sorting' do
 
   context 'Sorting by updated_at' do
     before do
-      Fabricate(:advert, name: 'New', updated_at: 1.day.ago)
-      Fabricate(:advert, name: 'Old', updated_at: 2.days.ago)
+      Fabricate(:advert, name: 'New', updated_at: 1.day.ago, state: :published)
+      Fabricate(:advert, name: 'Old', updated_at: 2.days.ago, state: :published)
     end
 
     scenario 'In ascending order' do

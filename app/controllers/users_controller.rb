@@ -1,25 +1,29 @@
 class UsersController < Devise::RegistrationsController
 
-  load_and_authorize_resource
+  before_filter :set_user, only: [:show, :edit, :update]
 
   def index
+    @users = User.all
+    authorize! :index, User
   end
 
   def show
+    authorize! :show, @user
     @awaiting = @user.adverts.awaiting_publication
     @declined = @user.adverts.declined
     @published = @user.adverts.published
   end
 
   def edit
-    @user.build_avatar unless @user.avatar
+    authorize! :edit, @user
   end
 
   def update
+    authorize! :update, @user
     if @user.update(user_params)
       redirect_to user_path(@user)
     else
-      redirect_to edit_user_path(@user)
+      render :edit
     end
   end
 
@@ -43,6 +47,10 @@ class UsersController < Devise::RegistrationsController
     elsif current_user.user?
       params.require(:user).permit(:name, :email, avatar_attributes: [:id, :image, :_destroy])
     end
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
 end

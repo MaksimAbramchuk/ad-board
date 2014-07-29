@@ -5,7 +5,7 @@ describe AdvertsController do
     let(:advert) { Fabricate(:advert) }
 
     describe '#edit' do
-      it_loads_requested_advert do
+      it_loads_requested(:advert) do
         get_edit_request
       end
 
@@ -69,7 +69,7 @@ describe AdvertsController do
         end
       end
 
-      it_loads_requested_advert do
+      it_loads_requested(:advert) do
         get_change_request
       end
 
@@ -101,7 +101,7 @@ describe AdvertsController do
         get_logs_request
       end
 
-      it_loads_requested_advert do
+      it_loads_requested(:advert) do
         get_logs_request
       end
 
@@ -131,6 +131,20 @@ describe AdvertsController do
         get :awaiting_publication
       end
     end
+
+    describe '#filter' do
+      it 'renders :index' do
+        get :filter
+        expect(response).to render_template(:index)
+      end
+    end
+
+    describe '#index' do
+      it 'permits access for guest' do
+        get :index
+        expect(response).to be_successful
+      end
+    end
   end
 
   describe 'PATCH' do
@@ -148,7 +162,7 @@ describe AdvertsController do
         patch_update_request
       end
 
-      it_loads_requested_advert do
+      it_loads_requested(:advert) do
         patch_update_request
       end
 
@@ -175,6 +189,7 @@ describe AdvertsController do
 
       for_users :owner, :admin do
         it "can't decline advert" do
+          advert = Fabricate(:advert, state: :published)
           patch_change_state(:decline)
 
           expect(advert.reload.state).not_to eq('declined')
@@ -271,7 +286,7 @@ describe AdvertsController do
         end
       end
 
-      it_loads_requested_advert do
+      it_loads_requested(:advert) do
         delete_destroy_request
       end
 

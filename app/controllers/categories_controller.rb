@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to categories_path
     else
-      redirect_to new_category_path
+      render :new
     end
   end
 
@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       redirect_to categories_path
     else
-      redirect_to :back
+      render :edit
     end
   end
 
