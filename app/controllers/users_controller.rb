@@ -9,9 +9,9 @@ class UsersController < Devise::RegistrationsController
 
   def show
     authorize! :show, @user
-    @awaiting = @user.adverts.awaiting_publication
-    @declined = @user.adverts.declined
-    @published = @user.adverts.published
+    [:awaiting_publication, :declined, :published].each do |state|
+      instance_variable_set("@#{state}", @user.adverts.send(state))
+    end
   end
 
   def edit
@@ -34,7 +34,7 @@ class UsersController < Devise::RegistrationsController
   def account
     if current_user.admin?
       render :admin_account
-    else
+    elsif current_user.user?
       render :user_account
     end
   end

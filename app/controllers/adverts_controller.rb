@@ -21,10 +21,10 @@ class AdvertsController < ApplicationController
   end
 
   def edit
-    redirect_to root_path if (@advert.user != current_user) && !current_user.admin?
   end
 
   def update
+    binding.pry
     if @advert.update(advert_params)
       redirect_to root_path
     else
@@ -50,7 +50,7 @@ class AdvertsController < ApplicationController
     if @advert.save
       redirect_to users_adverts_path
     else
-      redirect_to advert_change_path(@advert)
+      render :change
     end
   end
 

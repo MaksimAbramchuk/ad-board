@@ -35,13 +35,14 @@ describe UsersController do
           get :show, id: user.id
 
           expect(assigns(:user)).to eq(user)
-          expect(assigns(:awaiting)).to eq(user.adverts.awaiting_publication)
-          expect(assigns(:declined)).to eq(user.adverts.declined)
-          expect(assigns(:published)).to eq(user.adverts.published)
+
+          [:awaiting_publication, :declined, :published].each do |var|
+            expect(assigns(var)).to eq(user.adverts.send(var))
+          end
         end
       end
 
-      for_user :admin, :user do
+      for_users :admin, :user do
         it_permits_access_for(:admin, :user) do
           get :show, id: user.id
         end

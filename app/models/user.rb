@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   has_many :adverts
   has_one :avatar, class_name: :Image, as: :imageable
 
@@ -14,7 +13,6 @@ class User < ActiveRecord::Base
   enumerize :role, in: [:user, :admin], default: :user, predicates: true
 
   class << self
-
     def find_for_social_oauth(auth)
       User.find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
         user.provider = auth.provider
@@ -24,7 +22,5 @@ class User < ActiveRecord::Base
         user.name = auth.info.name
       end
     end
-
   end
-
 end

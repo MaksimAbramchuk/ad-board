@@ -6,42 +6,34 @@ describe AdvertsController do
 
     describe '#edit' do
       it_loads_requested(:advert) do
-        get_edit_request
+        get :edit, id: advert.id
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get_edit_request
+          get :edit, id: advert.id
         end
       end
 
       it_denies_access_for(:guest) do
-        get_edit_request
+        get :edit, id: advert.id
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get_edit_request
+          get :edit, id: advert.id
         end
-      end
-
-      def get_edit_request
-        get :edit, id: advert.id
       end
     end
 
     describe '#new' do
       for_users :user, :admin do
         it_permits_access_for(:user, :admin) do
-          get_new_request
+          get :new
         end
       end
 
       it_denies_access_for(:guest) do
-        get_new_request
-      end
-
-      def get_new_request
         get :new
       end
     end
@@ -49,31 +41,27 @@ describe AdvertsController do
     describe '#change' do
       for_user :owner do
         it_permits_access_for(:owner) do
-          get_change_request
+          get :change, id: advert.id
         end
       end
 
       it_denies_access_for(:guest) do
-        get_change_request
+        get :change, id: advert.id
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get_change_request
+          get :change, id: advert.id
         end
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get_change_request
+          get :change, id: advert.id
         end
       end
 
       it_loads_requested(:advert) do
-        get_change_request
-      end
-
-      def get_change_request
         get :change, id: advert.id
       end
     end
@@ -81,31 +69,27 @@ describe AdvertsController do
     describe '#logs' do
       for_user(:owner) do
         it_permits_access_for(:owner) do
-          get_logs_request
+          get :logs, id: advert.id
         end
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get_logs_request
+          get :logs, id: advert.id
         end
       end
 
       for_user :admin do
         it_permits_access_for(:admin) do
-          get_logs_request
+          get :logs, id: advert.id
         end
       end
 
       it_denies_access_for(:guest) do
-        get_logs_request
+        get :logs, id: advert.id
       end
 
       it_loads_requested(:advert) do
-        get_logs_request
-      end
-
-      def get_logs_request
         get :logs, id: advert.id
       end
     end
@@ -113,21 +97,17 @@ describe AdvertsController do
     describe '#awaiting_publication' do
       for_user :admin do
         it_permits_access_for(:admin) do
-          get_awaiting_publication_request
+          get :awaiting_publication
         end
       end
 
       for_user :user do
         it_denies_access_for(:user) do
-          get_awaiting_publication_request
+          get :awaiting_publication
         end
       end
 
       it_denies_access_for(:quest) do
-        get_awaiting_publication_request
-      end
-
-      def get_awaiting_publication_request
         get :awaiting_publication
       end
     end

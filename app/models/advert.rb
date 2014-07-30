@@ -1,5 +1,4 @@
 class Advert < ActiveRecord::Base
-
   paginates_per 10
 
   scope :including_all, -> { includes(:category, :images, :user) }
@@ -46,12 +45,10 @@ class Advert < ActiveRecord::Base
     event :decline do
       transitions from: :awaiting_publication, to: :declined
     end
-
   end
 
   def self.archive_old_adverts
     published_adverts = Advert.more_than_1_day
     published_adverts.find_each { |a| a.archive; a.save }
   end
-
 end

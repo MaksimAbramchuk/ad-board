@@ -1,10 +1,9 @@
 class Ability
-
   include CanCan::Ability
 
   def initialize(user)
-
     user ||= User.new
+
     if user.admin?
       can :manage, Advert
       can :manage, Category
@@ -16,5 +15,4 @@ class Ability
       can [:change, :edit, :update], User, id: user.id
     end
   end
-
 end

@@ -1,5 +1,4 @@
 class AdvertStatusService
-
   attr_accessor :advert, :user
 
   def initialize(advert, user)
@@ -7,7 +6,7 @@ class AdvertStatusService
     @user = user
   end
 
-  %w(send_for_publication archive publish decline).each do |event|
+  [:send_for_publication, :archive, :publish, :decline].each do |event|
     define_method(event) do
       ActiveRecord::Base.transaction do
         before_state = @advert.state
@@ -16,5 +15,4 @@ class AdvertStatusService
       end
     end
   end
-
 end

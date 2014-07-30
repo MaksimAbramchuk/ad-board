@@ -1,9 +1,6 @@
--if !@awaiting.empty?
-  h3.text-center Awaiting publication
-  = render partial: '/adverts/advert', collection: @awaiting
--if !@declined.empty?
-  h3.text-center Declined
-  = render partial: '/adverts/advert', collection: @declined
--if !@published.empty?
-  h3.text-center Published
-  = render partial: '/adverts/advert', collection: @published
+- [:awaiting_publication, :declined, :published].each do |state|
+  - instance_variable = instance_variable_get("@#{state}")
+  - unless instance_variable.empty?
+    h3.text-center
+        = state.to_s.split('_').join(' ').titleize
+    = render partial: '/adverts/advert', collection: instance_variable
