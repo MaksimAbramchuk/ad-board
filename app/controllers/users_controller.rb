@@ -1,4 +1,5 @@
 class UsersController < Devise::RegistrationsController
+  include ApplicationHelper
 
   before_filter :set_user, only: [:show, :edit, :update]
 
@@ -21,8 +22,10 @@ class UsersController < Devise::RegistrationsController
   def update
     authorize! :update, @user
     if @user.update(user_params)
+      flash[:notice] = t('flash.user.update.success')
       redirect_to user_path(@user)
     else
+      flash.now[:alert] = list_saving_errors(@user)
       render :edit
     end
   end

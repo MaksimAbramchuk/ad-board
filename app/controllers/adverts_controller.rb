@@ -1,5 +1,7 @@
 class AdvertsController < ApplicationController
 
+  include ApplicationHelper
+
   skip_before_action :authenticate_user!, only:[:index, :filter]
   load_and_authorize_resource
 
@@ -14,8 +16,10 @@ class AdvertsController < ApplicationController
   def create
     @advert.user = current_user
     if @advert.save
+      flash[:notice] = t('flash.advert.create.success') 
       redirect_to users_adverts_path
     else
+      flash.now[:alert] = list_saving_errors(@advert)
       render :new
     end
   end
@@ -24,10 +28,11 @@ class AdvertsController < ApplicationController
   end
 
   def update
-    binding.pry
     if @advert.update(advert_params)
+      flash[:notice] = t('flash.advert.update.success')
       redirect_to root_path
     else
+      flash.now[:alert] = list_saving_errors(@advert)
       render :edit
     end
   end
@@ -48,6 +53,7 @@ class AdvertsController < ApplicationController
       @comment = Comment.create(advert: @advert, comment: advert_params[:comment], operation: @operation)
     end
     if @advert.save
+      flash[:notice] = t('flash.advert.change_state.success')
       redirect_to users_adverts_path
     else
       render :change
@@ -66,6 +72,11 @@ class AdvertsController < ApplicationController
 
   def destroy
     @advert.destroy
+    unless @advert.persisted?
+      flash[:notice] = t('flash.advert.delete.success')
+    else
+      flash.now[:alert] = t('flash.advert.delete.error')
+    end
     redirect_to root_path
   end
 

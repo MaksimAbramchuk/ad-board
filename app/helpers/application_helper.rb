@@ -7,4 +7,8 @@ module ApplicationHelper
     end
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
+
+  def list_saving_errors(resource)
+    resource.errors.full_messages.join('. ')
+  end
 end
