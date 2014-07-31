@@ -37,4 +37,4 @@
     tr 
       td style='padding-top: 10px;'
         = advert.user.name
-        = advert.updated_at.strftime(' %m/%d/%Y at %T')
+        = formatted_time_from_now(advert)

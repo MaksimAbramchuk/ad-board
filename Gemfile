@@ -20,6 +20,7 @@ gem 'twitter-bootstrap-rails'
 gem 'app_config'
 gem 'simple_form'
 gem 'enumerize'
+gem 'russian', '~> 0.6.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
