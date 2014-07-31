@@ -1,9 +1,7 @@
 h3 Edit user:
-= nested_form_for @user do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :email
-  = f.text_field :email
+= simple_nested_form_for @user do |f|
+  = f.input :name
+  = f.input :email
   - if can? :change_role, @user
     = f.label :role
     = f.select :role, User.role.options
@@ -15,4 +13,4 @@ h3 Edit user:
     = builder.label :image, "Change avatar"
     = builder.file_field :image
   br
-  =f.submit "Submit",class: "btn btn-success"
+  = f.button :submit, class: "btn btn-success"

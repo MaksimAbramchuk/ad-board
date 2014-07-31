@@ -1,22 +1,18 @@
-= nested_form_for @advert do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :description
-  = f.text_area :description
-  = f.label :category
-  = f.select :category_id, Category.pluck(:name, :id)
+= simple_nested_form_for @advert do |f|
+  = f.input :name
+  = f.input :description
+  = f.association :category, prompt: 'Select category'
   = f.label :type
   = f.select :kind, Advert.kind.options
-  = f.label :price
-  = f.number_field :price,step: 0.1
+  = f.input :price
   = f.hidden_field :state, value: :new
   - if @advert.images
-    = f.fields_for :images do |builder|
+    = f.simple_fields_for :images do |builder|
       = image_tag builder.object.image.url(:small)
       = builder.link_to_remove ' Remove Image'
   br
-  - f.fields_for :images do |builder|
+  - f.simple_fields_for :images do |builder|
     - builder.file_field :image
-  p = f.link_to_add 'Add image',:images
+  p = f.link_to_add 'Add image', :images
   br
-  =f.submit "Submit",class: "btn btn-success"
+  = f.button :submit, class: "btn btn-success"

@@ -1,5 +1,4 @@
-= form_for @category do |f|
-	  = f.label "Enter the name:"
-	  = f.text_field :name
-	  br
-	  = f.submit "Submit", :class => "btn btn-success"
+= simple_form_for @category do |f|
+  = f.input :name
+  br
+  = f.button :submit, class: "btn btn-success"
