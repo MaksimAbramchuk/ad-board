@@ -12,6 +12,8 @@ ru:
         price: 'Цена'
         date: 'Дата'
   flash:
+    errors:
+      not_authorized: 'Вы не авторизированы, чтобы иметь к этому доступ'
     advert:
       create:
         success: 'Объявление было успешно создано'

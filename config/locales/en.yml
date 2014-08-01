@@ -1,5 +1,7 @@
 en:
   flash:
+    errors:
+      not_authorized: 'You are not authorized to access this'
     advert:
       create:
         success: 'The advert has been successfully added'

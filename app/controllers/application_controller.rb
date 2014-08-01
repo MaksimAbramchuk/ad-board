@@ -1,3 +1,5 @@
+require 'app_responder'
+
 class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
@@ -7,6 +9,9 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   rescue_from CanCan::AccessDenied, with: :user_not_authorized
+  
+  self.responder = AppResponder
+  respond_to :html
 
   def initialize_search
     @search = Advert.search(params[:q])
@@ -23,6 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
+    flash[:alert] = t('flash.errors.not_authorized')
     redirect_to root_path
   end
 

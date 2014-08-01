@@ -36,5 +36,5 @@
         = advert.price.to_s+"$"
     tr 
       td style='padding-top: 10px;'
-        = advert.user.name
+        = link_to advert.user.name, user_path(advert.user)
         = formatted_time_from_now(advert)
