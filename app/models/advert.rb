@@ -22,7 +22,7 @@ class Advert < ActiveRecord::Base
   enumerize :kind, in: [:sale, :purchase, :exchange, :service, :rent]
 
   include AASM
-  aasm column: 'state', :whiny_transitions => false do
+  aasm column: 'state', whiny_transitions: false do
 
     state :new, initial: true
     state :awaiting_publication

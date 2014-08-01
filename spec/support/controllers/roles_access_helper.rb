@@ -3,7 +3,7 @@ module Controllers
     def for_users(*roles, &block)
       roles.each do |role|
         context "for #{role}" do
-          if role==:owner 
+          if role == :owner 
             let(:user) { advert.user }
           else
             let(:user) { Fabricate(:user, role: role) }

@@ -1,6 +1,6 @@
 namespace :db do
-  task :archive => :environment do
+  task archive: :environment do
     Advert.archive_old_adverts
-    p "Succesfull"
+    puts 'Succesfull'
   end
 end

@@ -5,7 +5,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'shoulda-matchers'
 
-Dir[Rails.root.join("spec/{support,fabricators}/**/*.rb")].each { |file| require file }
+Dir[Rails.root.join('spec/{support,fabricators}/**/*.rb')].each { |file| require file }
 
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit

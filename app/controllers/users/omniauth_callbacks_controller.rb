@@ -9,7 +9,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         set_flash_message(:notice, :success, kind: provider.titleize) if is_navigational_format?
       else
         session["devise.#{provider}_data"] = request.env['omniauth.auth']
-        render text: @user.errors.full_messages.join(' ')
+        flash[:alert] = list_saving_errors(@user)
+        redirect_to new_user_session_path
       end
     end
   end

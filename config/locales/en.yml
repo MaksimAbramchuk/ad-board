@@ -2,6 +2,7 @@ en:
   flash:
     errors:
       not_authorized: 'You are not authorized to access this'
+      record_not_found: 'Record has not been found.'
     advert:
       create:
         success: 'The advert has been successfully added'

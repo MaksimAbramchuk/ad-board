@@ -12,7 +12,7 @@ CATEGORIES.each { |category| Category.find_or_create_by(name: category) }
 ROLES.each do |role|
   2.times do |i|
     @user = User.create(name: Faker::Name.name, password: 'password', password_confirmation: 'password', email: "#{role}#{i}@gmail.com", role: role)
-    p "User with password '#{@user.email}' and password '#{@user.password}' has been created"
+    puts "User with password '#{@user.email}' and password '#{@user.password}' has been created"
     Advert.kind.options.each do |kind|
       STATES.each do |state|
         @advert = Advert.create(name: Faker::Commerce.product_name, description: Faker::Lorem.sentence(20), price: rand(1..10000), state: state, kind: kind.last, user: @user, category: Category.all.sample)

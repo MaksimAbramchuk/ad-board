@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
 
   rescue_from CanCan::AccessDenied, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   
   self.responder = AppResponder
   respond_to :html
@@ -29,6 +30,11 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = t('flash.errors.not_authorized')
+    redirect_to root_path
+  end
+
+  def record_not_found
+    flash[:alert] = t('flash.errors.record_not_found')
     redirect_to root_path
   end
 
