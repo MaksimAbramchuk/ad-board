@@ -14,7 +14,7 @@ feature 'State changing' do
     expect(page).to have_content 'archived'
   end
 
-  scenario 'Advert decline with comment', js: true do
+  scenario 'Advert decline with comment' do
     advert = Fabricate(:advert, state: :awaiting_publication)
     user = Fabricate(:user, role: 'admin')
 

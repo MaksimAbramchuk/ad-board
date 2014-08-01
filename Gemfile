@@ -24,7 +24,7 @@ gem 'responders'
 
 group :development, :test do
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 2.14.2'
   gem 'faker', '~> 1.4.2'
   gem 'rubocop'
 end
@@ -40,7 +40,7 @@ group :test do
   gem 'formulaic'
 end
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.0'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
