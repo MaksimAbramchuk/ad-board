@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
     unless @category.persisted?
       flash[:notice] = t('flash.category.delete.success')
     else
-      flash.now[:alert] = t('flash.category.delete.error')
+      flash[:alert] = t('flash.category.delete.error')
     end
     redirect_to categories_path
   end

@@ -9,10 +9,10 @@ feature 'Advert Functional' do
     sign_in_with(user.email, user.password)
 
     visit new_advert_path
-    fill_in 'advert_name', with: 'test_advert_name'
-    fill_in 'advert_description', with: 'test_description'
-    fill_in 'advert_price', with: '1000'
-    select(category.name, from: 'advert_category_id')
+    fill_form(:advert, { name: 'test_advert_name',
+                         description: 'test_description',
+                         price: '1000',
+                         category: category.name })
     page.find('input.btn').click
 
     expect(page).to have_content 'test_advert_name'
@@ -25,7 +25,7 @@ feature 'Advert Functional' do
     sign_in_with(user.email, user.password)
 
     visit edit_advert_path(advert)
-    fill_in 'advert_name', with: 'test_advert_name'
+    fill_form(:advert, { name: 'test_advert_name' })
     page.find('input.btn').click
     
     visit users_adverts_path

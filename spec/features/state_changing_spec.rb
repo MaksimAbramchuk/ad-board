@@ -22,7 +22,7 @@ feature 'State changing' do
     
     visit awaiting_publication_adverts_path
     select_state('decline')
-    fill_in 'advert_comment', with: 'test_comment'
+    fill_form(:comment, { comment: 'test_comment' })
     click_button('Change state')
     
     visit logs_advert_path(advert)

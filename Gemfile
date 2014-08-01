@@ -38,6 +38,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers', require: false
   gem 'simplecov', '~> 0.9.0', :require => false
+  gem 'formulaic'
 end
 
 gem 'rails', '4.1.0'
