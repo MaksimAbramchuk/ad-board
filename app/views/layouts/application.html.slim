@@ -20,18 +20,18 @@ html lang="en"
           - if user_signed_in?
             .container.nav-collapse
               ul.nav  
-                  li = link_to "Hello, #{current_user.name}!"
+                li = link_to t('header.hello', username: current_user.name)
               ul class="nav pull-right"
                 li = link_to t('header.account'), account_path
                 li = link_to t('header.add_new_advert'), new_advert_path, method: :get
                 = search_form_for @search, html: {class:"navbar-search", style:"margin-right: 20px"} do |f|
                   = f.text_field :description_cont, class: "search-query", placeholder: "Search"
-                li = link_to "Log out", destroy_user_session_path, method: "delete"
+                li = link_to t('header.log_out'), destroy_user_session_path, method: "delete"
           - if !user_signed_in?
             .container.nav-collapse
               ul.nav.pull-right
-                li = link_to 'Sign in', new_user_session_path
-                li = link_to 'Sign up', new_user_registration_path
+                li = link_to t('header.sign_in'), new_user_session_path
+                li = link_to t('header.sign_up'), new_user_registration_path
 
   = yield :sidebar  
         

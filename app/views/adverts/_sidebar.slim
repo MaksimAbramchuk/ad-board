@@ -12,7 +12,8 @@
     = link_to_add_fields "Add Conditions", f, :condition
     br
     = f.submit :Search, class: 'btn btn-success'
-  h4 Categories
+  h4
+    = t('sidebar.categories')
   -Advert.categories_count.each do |name, count|
     =link_to "#{name} (#{count})", "filter?query=#{name}"
     br

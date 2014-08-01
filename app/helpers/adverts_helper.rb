@@ -23,6 +23,6 @@ module AdvertsHelper
   end
 
   def formatted_time_from_now(advert)
-    " about #{distance_of_time_in_words(Time.now-advert.created_at)} ago"
+    " #{distance_of_time_in_words(Time.now-advert.created_at)}"
   end
 end

@@ -39,10 +39,17 @@ ru:
     board: 'Доска объявлений'
     account: 'Аккаунт'
     add_new_advert: 'Добавить новое объявление'
+    hello: 'Привет, %{username}'
+    log_out: 'Выйти'
+    sign_in: 'Войти'
+    sign_up: 'Зарегистрироваться'
   sidebar:
     sort_by: 'Отсортировать по:'
     filter_by: 'Отфильтровать по:'
     search: 'Поиск'
+    categories: 'Категории'
+  advert_template:
+    time: '%{time} назад'
   date:
     abbr_day_names:
     - Вс

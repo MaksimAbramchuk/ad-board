@@ -23,3 +23,7 @@ en:
       delete:
         success: 'The category has been successfully deleted'
         error: 'Some errors have occured while deleting'
+  header:
+    hello: 'Hello, %{username}!' 
+  advert_template:
+    time: '%{time} ago'

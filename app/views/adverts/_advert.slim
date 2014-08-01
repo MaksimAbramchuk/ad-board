@@ -37,4 +37,4 @@
     tr 
       td style='padding-top: 10px;'
         = link_to advert.user.name, user_path(advert.user)
-        = formatted_time_from_now(advert)
+        = t('advert_template.time', time: formatted_time_from_now(advert))
