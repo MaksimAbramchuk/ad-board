@@ -21,6 +21,7 @@ gem 'simple_form', '~> 3.0.2'
 gem 'enumerize', '~> 0.8.0'
 gem 'russian', '~> 0.6.0'
 gem 'responders'
+gem 'rubycritic', require: false
 
 group :development, :test do
   gem 'pry-byebug'
@@ -30,6 +31,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'nyan-cat-formatter'
   gem 'capybara', '~> 2.3.0'
   gem 'capybara-webkit', '~> 1.2.0'
   gem 'fabrication', '~> 2.11.3'
