@@ -12,3 +12,4 @@ For calculating and seeing code coverage by tests run:
 bin/rake COVERAGE=true
 bundle ex launchy coverage/index.html
 ```
+2015
